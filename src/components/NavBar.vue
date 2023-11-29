@@ -7,12 +7,25 @@ const isDropped = ref(false)
 const toggleDropdown = (value) => {
   isDropped.value = value
 }
+
+const categories = ref([
+  {
+    name: 'CategoryA',
+  },
+  {
+    name: 'CategoryB',
+  },
+  {
+    name: 'CategoryC',
+  }
+])
+
 </script>
 
 <template>
   <div class="navbar">
-    <nav class="menu">
-      <div class="left">
+    <nav class="navbar-menu">
+      <div class="navbar-menu-left">
         <span class="menu-logo">
           <h1>LOGO HERE</h1>
         </span>
@@ -26,7 +39,7 @@ const toggleDropdown = (value) => {
         </span>
 
         <span class="menu-item">
-          <RouterLink to="/about">Search</RouterLink>
+          <RouterLink to="/search">Search</RouterLink>
         </span>
 
         <span 
@@ -37,18 +50,22 @@ const toggleDropdown = (value) => {
           <a href="#" class="dropbtn">Category &#9662;</a>
           <transition name="slide">
             <div
-              class="dropdown-content" 
+              class="navbar-menu-dropdown-content" 
               v-if="isDropped"
             >
-              <RouterLink to="/about">Category1</RouterLink>
-              <RouterLink to="/about">Category2</RouterLink>
-              <RouterLink to="/about">Category3</RouterLink>
+              <router-link 
+                v-for="category in categories"
+                :key="category.name"
+                :to="{path: `/category/${category.name}`}"
+              >
+                {{ category.name }}
+              </router-link>
           </div>
           </transition>
         </span>
       </div>
       
-      <div class="right">
+      <div class="navbar-menu-right">
 
       </div>
     </nav>
@@ -64,45 +81,44 @@ const toggleDropdown = (value) => {
   left: 0;
   width: 100%;
 }
-.menu {
+.navbar-menu {
   display: flex;
   justify-content: space-between;
   background-color: #202124;
   padding: 10px 20px;
+  .menu-logo {
+    margin-right: 20px;
+    color: white;
+  }
+  .menu-item {
+    margin: 0px 10px;
+    color: white;
+  }
+  .menu-item a {
+    text-decoration: none;
+    color: white;
+  }
+  .menu-item a:visited {
+    color: white;
+  }
+
+  .menu-item:hover {
+    transform: scale(1.03);
+  }
 }
-.left {
+.navbar-menu-left {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.right {
+.navbar-menu-right {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.menu-logo {
-  margin-right: 20px;
-  color: white;
-}
-.menu-item {
-  margin: 0px 5px;
-  color: white;
-}
-.menu-item a {
-  text-decoration: none;
-  color: white;
-}
-.menu-item a:visited {
-  color: white;
-}
-
-.menu-item:hover {
-  transform: scale(1.03);
-}
-
-.dropdown-content {
+.navbar-menu-dropdown-content {
   position: absolute;
   background-color: #333;
   min-width: 120px;
@@ -111,16 +127,17 @@ const toggleDropdown = (value) => {
   transform-origin: top;
   transition: .33s ease-in-out;
   overflow: hidden;
+  
 }
 
-.dropdown-content a {
+.navbar-menu-dropdown-content a {
   color: white;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
-.dropdown-content a:hover {
+.navbar-menu-dropdown-content a:hover {
   background-color: #555;
 }
 

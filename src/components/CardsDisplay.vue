@@ -1,2 +1,11 @@
-// TODO:
-// Show list of cards (that fit the criteria if filtered)
+<script setup>
+</script>
+
+<template>
+  <div>
+    <h2>Placeholder for card list</h2>
+  </div>
+</template>
+
+<style scoped>
+</style>

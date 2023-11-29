@@ -4,14 +4,16 @@ import NavBar from '@/components/NavBar.vue'
 
 <template>
   <div>
-    <div>
-      <NavBar />
-    </div>
-    
-    <RouterView />
+    <NavBar />
+    <br />
+
+    <RouterView style="margin-top: 60px" />
   </div>
 </template>
 
 <style scoped>
-
+#app {
+  width: 100%;
+  font-family: 'Nunito', sans-serif;
+}
 </style>
