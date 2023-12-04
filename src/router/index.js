@@ -47,13 +47,21 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach( (to, from) => {
-  console.log("Before each is executed")
-  console.log("to :" + to.name)
-  if(to.name === "profile" & !auth.currentUser) {
-    console.log("login users only")
-    router.push('/login')
+router.beforeEach((to, from, next) => {
+  console.log("Before each is executed");
+  console.log("to :" + to.name);
+
+  const isLoggedIn = auth.currentUser;
+
+  if (to.name === "login" && isLoggedIn) {
+    console.log("User is already logged in, redirecting to profile");
+    next({ name: "profile" });
+  } else if (to.name === "profile" && !isLoggedIn) {
+    console.log("Login users only");
+    next({ name: "login" });
+  } else {
+    next();
   }
-})
+});
 
 export default router
