@@ -3,6 +3,8 @@ import HomeView from '../views/HomeView.vue'
 import SearchView from '../views/SearchView.vue'
 import CategoryView from '../views/CategoryView.vue'
 
+import { auth } from '@/js/firebase'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -14,9 +16,6 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import('../views/AboutView.vue')
     },
     {
@@ -30,7 +29,31 @@ const router = createRouter({
       component: CategoryView,
       props: true,
     },
+    {
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/RegisterView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue')
+    },
   ]
+})
+
+router.beforeEach( (to, from) => {
+  console.log("Before each is executed")
+  console.log("to :" + to.name)
+  if(to.name === "profile" & !auth.currentUser) {
+    console.log("login users only")
+    router.push('/login')
+  }
 })
 
 export default router
