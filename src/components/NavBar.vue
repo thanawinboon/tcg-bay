@@ -67,9 +67,6 @@ const categories = ref([
           <RouterLink to="/register">Register</RouterLink>
         </span>
         <span class="menu-item">
-          <RouterLink to="/login">Login</RouterLink>
-        </span>
-        <span class="menu-item">
           <RouterLink to="/profile">Profile</RouterLink>
         </span>
       </div>
