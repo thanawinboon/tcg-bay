@@ -5,6 +5,22 @@ defineProps({
     required: true
   }
 })
+
+function getDate(timestamp) {
+  const date = new Date(timestamp)
+  let dd = date.getDate()
+  let mm = date.getMonth() + 1
+  const yyyy = date.getFullYear()
+
+  if (dd < 10) {
+    dd = '0' + dd
+  }
+
+  if (mm < 10) {
+    mm = '0' + mm
+  }
+  return `${yyyy}-${mm}-${dd}`
+}
 </script>
 
 <template>
@@ -35,8 +51,7 @@ defineProps({
         </h6>
         <h6 class="card__time">
           <img src="/icon-clock.svg" alt="clock" />
-          <!-- {{ card.time }} -->
-          <!-- DISPLAY TIMESTAMP PROPERLY -->
+          {{ getDate(card.time.seconds * 1000) }}
         </h6>
       </div>
       <div class="line"></div>
@@ -151,14 +166,14 @@ defineProps({
 
   .card__time {
     color: #a89ec9;
-    font-weight: 300;
+    font-weight: 100;
   }
 }
 
 .line {
   height: 1px;
   width: 100%;
-  background: #2E415A;
+  background: #2e415a;
 }
 
 .card__owner {
