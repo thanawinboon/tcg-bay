@@ -158,7 +158,7 @@ defineProps({
 .line {
   height: 1px;
   width: 100%;
-  background: var(--line-color);
+  background: #2E415A;
 }
 
 .card__owner {
