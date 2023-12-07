@@ -18,164 +18,184 @@ defineProps({
     "
   >
     <div class="card">
-      <div class="card__product-img">
+      <div class="artwork">
         <!-- <img 
         class="card__img"
         alt="product-image" 
         :src="require('@/static/images/' + img)"
       > -->
       </div>
-      <div class="card__content">
-        <p class="card__name">
-          {{ card.name }}
-        </p>
-        <p class="card__note">{{ card.note }}</p>
-        <div class="card__content-bottom">
-          <div class="card__category">
-            <ins>◘</ins>
-            <p>{{ card.category }}</p>
-          </div>
-          <div v-if="time" class="card__time">
-            <ins>◷</ins>
-            <p>{{ card.time }}</p>
-          </div>
-        </div>
+
+      <h3 class="card__name">{{ card.name }}</h3>
+      <p class="card__note">{{ card.note }}</p>
+
+      <div class="card__extra">
+        <h6 class="card__category">
+          {{ card.category }}
+        </h6>
+        <h6 class="card__time">
+          <img src="/icon-clock.svg" alt="clock" />
+          <!-- {{ card.time }} -->
+          <!-- DISPLAY TIMESTAMP PROPERLY -->
+        </h6>
       </div>
-      <div class="card__footer">
-        <div class="card__avatar">
-          <img :src="require('@/static/images/' + avatar)" alt="avatar-image" />
+      <div class="line"></div>
+
+      <div class="card__owner">
+        <div class="profile-photo">
+          <!-- show photo -->
         </div>
-        <p class="card__author">
-          Creation of <span class="card__author--alt-color">{{ card.id }}</span>
+        <p>
+          <span>Owned by</span> <span class="name">{{ card.owner }}</span>
         </p>
       </div>
     </div>
   </RouterLink>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .card {
-  background-color: #15263f;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  max-width: 350px;
+  // color: var(--white);
+  // background: var(--card-bg);
   color: #8bacd9;
-  border-radius: 16px;
-  padding: 24px;
-  width: 327px;
-  font-size: 1.5rem;
-  box-shadow: 0 25px 50px 0 rgba(0, 0, 0, 0.1);
-  @media screen and (min-width: 768px) {
-    font-size: 1.6rem;
-    width: 350px;
-    padding-bottom: 32px;
-  }
-  .card__product-img {
+  background-color: #15263f;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 20px 20px var(--shadow-color);
+  padding: 1.5rem;
+}
+
+.artwork {
+  width: 100%;
+  background-color: black;
+  aspect-ratio: 1/1;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+
+  &:hover {
     cursor: pointer;
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    @mixin hoverOpacity {
+
+    &::before,
+    &::after {
       content: '';
       position: absolute;
+      top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      opacity: 0;
-      transition: opacity 0.25s ease-out;
+      z-index: 10;
     }
+
+    &::before {
+      background: var(--cyan);
+      opacity: 0.5;
+    }
+
     &::after {
-      @include hoverOpacity;
-      background: no-repeat rgba(0, 255, 255, 0.5) url(../../assets/images/card/icon-view.svg)
-        center;
-    }
-    &:hover {
-      &::after {
-        opacity: 1;
-      }
+      content: url(/icon-view.svg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
-  .card__content {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    padding: 24px 0 16px 0;
-    @media screen and (min-width: 768px) {
-      gap: 16px;
-      padding: 24px 0;
-    }
-    .card__name {
-      color: white;
-      font-size: 2.2rem;
-      font-weight: bold;
-      cursor: pointer;
-      &:hover {
-        color: #00fff8;
-      }
-    }
-    .card__note {
-      font-size: 1.8rem;
-      line-height: 2.6rem;
-      font-weight: lighter;
-    }
-    .card__content-bottom {
-      display: flex;
-      justify-content: space-between;
-      padding-top: 4px;
-      @media screen and (min-width: 768px) {
-        padding-top: 6px;
-      }
-      > * {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        font-weight: 600;
-      }
-      .card__category {
-        color: #00fff8;
-        ins {
-          margin-left: -0.3rem;
-          margin-right: 0.5rem;
-        }
-        .card__time {
-          color: #a89ec9;
-          ins {
-            margin: 0.5rem;
-            margin-bottom: 0.4rem;
-          }
-        }
-      }
-    }
-    .card__footer {
-      display: flex;
-      align-items: center;
-      border-top: 1px solid #2e405a;
-      gap: 16px;
-      padding-top: 16px;
-      .card__avatar {
-        display: flex;
-        border-radius: 90px;
-        border: 1px solid white;
-        img {
-          width: 33px;
-        }
-      }
-      .card__author--alt-color {
-        color: white;
-        cursor: pointer;
-        &:hover {
-          color: #00fff8;
-        }
-      }
-    }
+
+  img {
+    width: 100%;
   }
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: 0.25s ease-out;
+.card__name {
+  color: white;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: 1px;
+
+  &:hover {
+    color: var(--cyan);
+    cursor: pointer;
+  }
 }
-.fade-leave-to,
-.fade-enter-from {
-  opacity: 0;
+
+.card__note {
+  color: var(--soft-blue);
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 25px;
+}
+
+.card__extra {
+  display: flex;
+  justify-content: space-between;
+
+  .card__category,
+  .card__time {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .card__category {
+    color: #00fff8;
+    font-weight: 600;
+  }
+
+  .card__time {
+    color: #a89ec9;
+    font-weight: 300;
+  }
+}
+
+.line {
+  height: 1px;
+  width: 100%;
+  background: var(--line-color);
+}
+
+.card__owner {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 1rem;
+
+  .profile-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    background-color: black;
+    aspect-ratio: 1/1;
+    border: 1px solid var(--white);
+    border-radius: 100%;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  span {
+    color: var(--soft-blue);
+    font-weight: 300;
+
+    &.name {
+      color: white;
+
+      &:hover {
+        color: var(--cyan);
+        cursor: pointer;
+      }
+    }
+  }
 }
 </style>
 
-// TODO: find a way to display image
+// TODO: find a way to display image and user properly

@@ -10,7 +10,7 @@ import CardsDisplay from '@/components/CardsDisplay.vue'
       <h1>TCG Bay</h1>
       <p>Home page is where the heart of the card is</p>
     </div>
-    <div class="home-body">
+    <div>
       <CardsDisplay/>
     </div>
   </div>
@@ -27,12 +27,6 @@ import CardsDisplay from '@/components/CardsDisplay.vue'
   text-align: center;
   align-items: center;
   color: white;
-  justify-content: center;
-}
-.home-body {
-  margin-bottom: 20px;
-  text-align: center;
-  align-items: center;
   justify-content: center;
 }
 

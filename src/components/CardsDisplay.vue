@@ -11,23 +11,22 @@ async function getCards() {
   onSnapshot(collection(db, 'cards'), (querySnapshot) => {
     try {
       let cardsSnapshot = []
-      console.log('first test')
       querySnapshot.forEach((doc) => {
-        console.log('second test')  // DOES NOT GET LOGGED BECAUSE IT QUERIES NOTHING SOMEHOW
         console.log(doc.id, ' => ', doc.data())
         let card = {
           id: doc.id,
           category: doc.data().category,
           name: doc.data().name,
           note: doc.data().note,
-          time: doc.data().time
+          time: doc.data().time,
+          owner: doc.data().owner
         }
         cardsSnapshot.push(card)
       })
       cards.value = cardsSnapshot
       console.log('Cards retrieved:', cards.value)
     } catch (error) {
-      console.error('Error fetching cards:', error)  // NO ERROR IS CAUGHT
+      console.error('Error fetching cards:', error)
     }
   })
 }
@@ -46,7 +45,15 @@ onMounted(async () => {
   </div>
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+main {
+  background: var(--main-bg);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
 .box {
   padding: 20px;
 }
@@ -58,5 +65,3 @@ onMounted(async () => {
   flex-wrap: wrap;
 }
 </style>
-
-// TODO: ACTUALLY GET THIS TO WORK!!
