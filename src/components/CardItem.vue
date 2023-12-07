@@ -40,6 +40,7 @@ function getDate(timestamp) {
         alt="product-image" 
         :src="require('@/static/images/' + img)"
       > -->
+        <!-- display image -->
       </div>
 
       <h3 class="card__name">{{ card.name }}</h3>
@@ -58,7 +59,7 @@ function getDate(timestamp) {
 
       <div class="card__owner">
         <div class="profile-photo">
-          <!-- show photo -->
+          <!-- display image -->
         </div>
         <p>
           <span>Owned by</span> <span class="name">{{ card.owner }}</span>
@@ -77,8 +78,6 @@ function getDate(timestamp) {
   gap: 1rem;
   width: 100%;
   max-width: 350px;
-  // color: var(--white);
-  // background: var(--card-bg);
   color: #8bacd9;
   background-color: #15263f;
   border-radius: 1rem;
@@ -213,4 +212,4 @@ function getDate(timestamp) {
 }
 </style>
 
-// TODO: find a way to display image and user properly
+// TODO: find a way to display image
