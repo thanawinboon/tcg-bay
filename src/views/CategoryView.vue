@@ -2,10 +2,8 @@
 import CardsDisplay from '@/components/CardsDisplay.vue'
 
 const props = defineProps({
-    category: { required: true }
+  category: { required: true }
 })
-
-
 </script>
 
 <template>
@@ -14,13 +12,12 @@ const props = defineProps({
       <h1>{{ props.category }}</h1>
     </div>
     <div class="category-body">
-      <CardsDisplay/>
+      <CardsDisplay />
     </div>
   </div>
 </template>
 
 <style scoped>
-
 #category {
   margin-top: 50px;
   padding: 0 10px;
@@ -37,6 +34,4 @@ const props = defineProps({
   align-items: center;
   justify-content: center;
 }
-
 </style>
-

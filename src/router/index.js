@@ -33,7 +33,7 @@ const router = createRouter({
       path: '/category/:category',
       name: 'category',
       component: CategoryView,
-      props: true,
+      props: true
     },
     {
       path: '/register',
@@ -49,25 +49,25 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: () => import('../views/ProfileView.vue')
-    },
+    }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  console.log("Before each is executed");
-  console.log("to :" + to.name);
+  console.log('Before each is executed')
+  console.log('to :' + to.name)
 
-  const isLoggedIn = auth.currentUser;
+  const isLoggedIn = auth.currentUser
 
-  if (to.name === "login" && isLoggedIn) {
-    console.log("User is already logged in, redirecting to profile");
-    next({ name: "profile" });
-  } else if (to.name === "profile" && !isLoggedIn) {
-    console.log("Login users only");
-    next({ name: "login" });
+  if (to.name === 'login' && isLoggedIn) {
+    console.log('User is already logged in, redirecting to profile')
+    next({ name: 'profile' })
+  } else if (to.name === 'profile' && !isLoggedIn) {
+    console.log('Login users only')
+    next({ name: 'login' })
   } else {
-    next();
+    next()
   }
-});
+})
 
 export default router

@@ -4,7 +4,7 @@ import CardsDisplay from '@/components/CardsDisplay.vue'
 import { db } from '@/js/firebase.js'
 import { collection, onSnapshot } from 'firebase/firestore'
 
-const cards = ref([]);
+const cards = ref([])
 async function getCards() {
   onSnapshot(collection(db, 'cards'), (querySnapshot) => {
     try {
@@ -32,7 +32,6 @@ async function getCards() {
 onMounted(async () => {
   await getCards()
 })
-
 </script>
 
 <template>
@@ -42,13 +41,12 @@ onMounted(async () => {
       <p>Home page is where the heart of the card is</p>
     </div>
     <div>
-      <CardsDisplay :cards="cards"/>
+      <CardsDisplay :cards="cards" />
     </div>
   </div>
 </template>
 
 <style scoped>
-
 #home {
   margin-top: 50px;
   padding: 0 10px;
@@ -57,8 +55,7 @@ onMounted(async () => {
   margin-bottom: 20px;
   text-align: center;
   align-items: center;
-  color: #D3E2FC;
+  color: #d3e2fc;
   justify-content: center;
 }
-
 </style>
