@@ -36,13 +36,13 @@ function resetForm () {
 <template>
   <div class="login">
     <h1>Login</h1>
-        <form @submit.prevent="login">
+        <form class="form-container" @submit.prevent="login">
             <div class="form-item">
-                <label>e-mail </label>
+                <label>E-mail </label>
                 <input v-model="email" id="email" type="text" />
             </div>
             <div class="form-item">
-                <label>password </label>
+                <label>Password </label>
                 <input v-model="password" id="password" type="password" />
             </div>
             <div class="form-item">
@@ -54,7 +54,12 @@ function resetForm () {
 </template>
 
 <style scoped>
+.login {
+  text-align: center;
+}
 .form-item {
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
 }
 </style>
