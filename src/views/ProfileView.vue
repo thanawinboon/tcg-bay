@@ -93,13 +93,15 @@ onMounted(() => {
 })
 
 function userSignOut() {
-  signOut(auth).then(() => {
-    console.log("Signed Out")
-    router.push('/')
-  }).catch((error) => {
-    console.log("Cannot Sign Out !!!")
-    console.log(error)
-  });
+  signOut(auth)
+    .then(() => {
+      console.log('Signed Out')
+      router.push('/')
+    })
+    .catch((error) => {
+      console.log('Cannot Sign Out !!!')
+      console.log(error)
+    })
 }
 </script>
 

@@ -64,7 +64,7 @@ function login() {
 }
 .login__text {
   font-size: 40px;
-  color: #7DACF9;
+  color: #7dacf9;
   font-weight: 600;
   letter-spacing: 2px;
 }
@@ -80,6 +80,7 @@ form {
       width: 60px;
       color: #94a5bc;
       border: 1px solid #485c73;
+      border-radius: 5px 0 0 5px;
       border-right: none;
       background: #021524;
       .icon {
@@ -102,20 +103,23 @@ form button {
   caret-color: white;
   background: #051726;
 }
+form button {
+  border-radius: 5px;
+}
 input:focus {
-  color: #7DACF9;
-  background: #0F2137;
+  color: #7dacf9;
+  background: #0f2137;
+  border: 1px solid #7dacf9;
 }
 button {
   margin-top: 20px;
-  border-radius: 5px;
   font-weight: 600;
   letter-spacing: 1px;
   cursor: pointer;
 }
 button:hover {
-  color: #D3E2FC;
-  border: 1px solid #7DACF9;
-  background: #0F2137;
+  color: #d3e2fc;
+  border: 1px solid #7dacf9;
+  background: #0f2137;
 }
 </style>

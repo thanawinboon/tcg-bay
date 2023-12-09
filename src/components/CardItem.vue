@@ -26,11 +26,7 @@ function getDate(timestamp) {
 <template>
   <RouterLink
     :to="{ name: 'card-details', params: { id: card.id } }"
-    style="
-      display: inline-block;
-      text-decoration: none;
-      color: black;
-    "
+    style="display: inline-block; text-decoration: none; color: black"
   >
     <div class="card">
       <div class="artwork">
@@ -77,8 +73,8 @@ function getDate(timestamp) {
   gap: 1rem;
   width: 100%;
   max-width: 350px;
-  color: #94A5BC;
-  background-color: #0D2037;
+  color: #94a5bc;
+  background-color: #0d2037;
   border-radius: 1rem;
   box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.418);
   padding: 1.5rem;
@@ -110,7 +106,7 @@ function getDate(timestamp) {
     }
 
     &::before {
-      background: #0D2037;
+      background: #0d2037;
       opacity: 0.5;
     }
 
@@ -128,7 +124,7 @@ function getDate(timestamp) {
 }
 
 .card__name {
-  color: #4A82E7;
+  color: #4a82e7;
   font-weight: 600;
   font-size: 1.5rem;
   letter-spacing: 1px;
@@ -140,7 +136,7 @@ function getDate(timestamp) {
 }
 
 .card__note {
-  color: #99A8C2;
+  color: #99a8c2;
   font-size: 18px;
   font-weight: 300;
   line-height: 25px;
@@ -158,12 +154,12 @@ function getDate(timestamp) {
   }
 
   .card__category {
-    color: #FFCB2B;
+    color: #ffcb2b;
     font-weight: 600;
   }
 
   .card__time {
-    color: #8BACD9;
+    color: #8bacd9;
     font-weight: 100;
   }
 }
@@ -171,7 +167,7 @@ function getDate(timestamp) {
 .line {
   height: 1px;
   width: 100%;
-  background: #172B3C;
+  background: #172b3c;
 }
 
 .card__owner {
@@ -202,7 +198,7 @@ function getDate(timestamp) {
       color: white;
 
       &:hover {
-        color: #D3E2FC;
+        color: #d3e2fc;
         cursor: pointer;
       }
     }

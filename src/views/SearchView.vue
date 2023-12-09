@@ -5,13 +5,17 @@ import { db } from '@/js/firebase.js'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
 // TODO: Show some fancy TCG wallpaper plus website's name ???
 
-const cards = ref([]);
+const cards = ref([])
 const searchInput = ref('')
 
 function searchCards() {
   console.log('Searching for cards')
-  const cardsCollection = collection(db, 'cards');
-  const queryCards = query(cardsCollection, where('name', '>=', searchInput.value), where('name', '<=', `${searchInput.value}\uf8ff`));
+  const cardsCollection = collection(db, 'cards')
+  const queryCards = query(
+    cardsCollection,
+    where('name', '>=', searchInput.value),
+    where('name', '<=', `${searchInput.value}\uf8ff`)
+  )
   onSnapshot(queryCards, (querySnapshot) => {
     try {
       let cardsSnapshot = []
@@ -35,7 +39,7 @@ function searchCards() {
   })
 }
 
-// TODO: Add search page 
+// TODO: Add search page
 // - Display all cards showing each one's image, name, owner's username (AND RATING), category
 // - Has a textbox for input
 // - Can sort cards
@@ -46,14 +50,23 @@ function searchCards() {
     <div class="search-header">
       <h2>Search</h2>
       <form class="search-container" @submit.prevent="searchCards">
-        <input v-model="searchInput" type="text" id="search-bar" placeholder="Enter card name here...">
+        <input
+          v-model="searchInput"
+          type="text"
+          id="search-bar"
+          placeholder="Enter card name here..."
+        />
         <button>
-          <img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png" alt="search">
+          <img
+            class="search-icon"
+            src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
+            alt="search"
+          />
         </button>
       </form>
     </div>
     <div class="search-body">
-      <CardsDisplay :cards="cards"/>
+      <CardsDisplay :cards="cards" />
     </div>
   </div>
 </template>
@@ -72,13 +85,13 @@ function searchCards() {
   margin-bottom: 20px;
 }
 
-.search-container{
+.search-container {
   display: flex;
   width: 100%;
   margin: 0 20px;
 }
 
-input#search-bar{
+input#search-bar {
   width: 100%;
   max-width: 1000px;
   height: 35px;
@@ -87,15 +100,12 @@ input#search-bar{
   border: none;
   outline: none;
   border-radius: 5px;
- }
+}
 
-.search-icon{
+.search-icon {
   position: relative;
   float: right;
   max-width: 30px;
   max-height: 30px;
 }
-
 </style>
-
-

@@ -47,7 +47,6 @@ onMounted(() => {
   })
 })
 
-
 </script>
 
 <template>
@@ -60,7 +59,7 @@ onMounted(() => {
         <span class="menu-item">
           <RouterLink to="/">Home</RouterLink>
         </span>
-    
+
         <!-- DELETE ABOUT LATER -->
         <span class="menu-item">
           <RouterLink to="/about">About</RouterLink>
@@ -70,25 +69,22 @@ onMounted(() => {
           <RouterLink to="/search">Search</RouterLink>
         </span>
 
-        <span 
+        <span
           class="menu-item"
           @mouseover="toggleDropdown(true)"
           @mouseleave="toggleDropdown(false)"
         >
           <a href="#" class="dropbtn">Category &#9662;</a>
           <transition name="slide">
-            <div
-              class="navbar-menu-dropdown-content" 
-              v-if="isDropped"
-            >
-              <router-link 
+            <div class="navbar-menu-dropdown-content" v-if="isDropped">
+              <router-link
                 v-for="category in categories"
                 :key="category.name"
-                :to="{path: `/category/${category.name}`}"
+                :to="{ path: `/category/${category.name}` }"
               >
                 {{ category.name }}
               </router-link>
-          </div>
+            </div>
           </transition>
         </span>
         <span class="menu-item">
@@ -98,14 +94,11 @@ onMounted(() => {
           <RouterLink to="/register">Register</RouterLink>
         </span>
       </div>
-      
-      <div class="navbar-menu-right">
 
-      </div>
+      <div class="navbar-menu-right"></div>
     </nav>
   </div>
 </template>
-
 
 <style scoped>
 .navbar {
@@ -119,11 +112,11 @@ onMounted(() => {
 .navbar-menu {
   display: flex;
   justify-content: space-between;
-  background-color: #061B2B;
+  background-color: #061b2b;
   padding: 10px 20px;
   .menu-logo {
     margin-right: 20px;
-    color: #FFCB2B;
+    color: #ffcb2b;
   }
   .menu-item {
     margin: 10px;
@@ -131,10 +124,10 @@ onMounted(() => {
   }
   .menu-item a {
     text-decoration: none;
-    color: #D3E2FC;
+    color: #d3e2fc;
   }
   .menu-item a:visited {
-    color: #D3E2FC;
+    color: #d3e2fc;
   }
 
   .menu-item:hover {
@@ -156,26 +149,25 @@ onMounted(() => {
 
 .navbar-menu-dropdown-content {
   position: absolute;
-  background-color: #0D2037;
+  background-color: #0d2037;
   min-width: 120px;
   z-index: 10;
 
   transform-origin: top;
-  transition: .33s ease-in-out;
+  transition: 0.33s ease-in-out;
   overflow: hidden;
-  
 }
 
 .navbar-menu-dropdown-content a {
-  color: #D3E2FC;
+  color: #d3e2fc;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
 .navbar-menu-dropdown-content a:hover {
-  background-color: #162D47;
-  color: #94A5BC;
+  background-color: #162d47;
+  color: #94a5bc;
 }
 
 .slide-enter {
@@ -184,5 +176,4 @@ onMounted(() => {
 .slide-leave-to {
   transform: scaleY(0);
 }
-
 </style>
