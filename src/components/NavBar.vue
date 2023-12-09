@@ -5,23 +5,21 @@ import { db } from '@/js/firebase.js'
 import { collection, onSnapshot } from 'firebase/firestore'
 import { auth } from '@/js/firebase'
 
-
 const isDropped = ref(false)
 const isLoggedIn = ref(false)
 const categories = ref([
   {
-    name: 'Temp',
-  },
+    name: 'Temp'
+  }
 ])
 
 function getCategories() {
   onSnapshot(collection(db, 'categories'), (querySnapshot) => {
     try {
-      
       let categorySnapshot = []
       querySnapshot.forEach((doc) => {
         let category = {
-          name: doc.data().name,
+          name: doc.data().name
         }
         categorySnapshot.push(category)
       })
@@ -46,7 +44,6 @@ onMounted(() => {
     }
   })
 })
-
 </script>
 
 <template>
@@ -56,16 +53,16 @@ onMounted(() => {
         <span class="menu-logo">
           <h1>LOGO_HERE</h1>
         </span>
-        <span class="menu-item">
+        <span class="menu-item" :class="{ 'current-page': $route.path === '/' }">
           <RouterLink to="/">Home</RouterLink>
         </span>
 
         <!-- DELETE ABOUT LATER -->
-        <span class="menu-item">
+        <span class="menu-item" :class="{ 'current-page': $route.path === '/about' }">
           <RouterLink to="/about">About</RouterLink>
         </span>
 
-        <span class="menu-item">
+        <span class="menu-item" :class="{ 'current-page': $route.path === '/search' }">
           <RouterLink to="/search">Search</RouterLink>
         </span>
 
@@ -87,10 +84,14 @@ onMounted(() => {
             </div>
           </transition>
         </span>
-        <span class="menu-item">
-          <RouterLink :to="{path: '/my-profile'}">Profile</RouterLink>
+        <span class="menu-item" :class="{ 'current-page': $route.path === '/my-profile' }">
+          <RouterLink :to="{ path: '/my-profile' }">Profile</RouterLink>
         </span>
-        <span class="menu-item" v-if="!isLoggedIn">
+        <span
+          class="menu-item"
+          v-if="!isLoggedIn"
+          :class="{ 'current-page': $route.path === '/register' }"
+        >
           <RouterLink to="/register">Register</RouterLink>
         </span>
       </div>
@@ -120,7 +121,7 @@ onMounted(() => {
   }
   .menu-item {
     margin: 10px;
-    color: #D3E2FC;
+    color: #d3e2fc;
   }
   .menu-item a {
     text-decoration: none;
@@ -131,8 +132,8 @@ onMounted(() => {
   }
 
   .menu-item:hover {
-    background-color: #162D47;
-    color: #94A5BC;
+    background-color: #092a43;
+    color: #94a5bc;
   }
 }
 .navbar-menu-left {
@@ -175,5 +176,9 @@ onMounted(() => {
 }
 .slide-leave-to {
   transform: scaleY(0);
+}
+
+.current-page {
+  box-shadow: inset 0px -1px 0px #afcbfb;
 }
 </style>
