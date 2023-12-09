@@ -72,6 +72,7 @@ form {
   .login__field {
     margin-top: 20px;
     display: flex;
+    width: 320px;
     .icon__box {
       display: flex;
       justify-content: center;

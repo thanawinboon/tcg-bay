@@ -82,7 +82,7 @@ function searchCards() {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 547px;
+  width: 549px;
   color: #94a5bc;
   background-color: #0d2037;
   border-radius: 1rem;
