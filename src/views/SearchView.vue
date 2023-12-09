@@ -42,20 +42,22 @@ function searchCards() {
 <template>
   <div id="search">
     <div class="search">
-      <div class="search__text">SEARCH</div>
-      <form @submit.prevent="searchCards">
-        <div class="search__field">
-          <input
-            v-model="searchInput"
-            id="search-bar"
-            type="text"
-            placeholder="Enter card name here..."
-          />
-          <button class="icon__box">
-            <img class="icon" src="/icon-search.svg" alt="search" />
-          </button>
-        </div>
-      </form>
+      <div class="search__actual">
+        <div class="search__text">SEARCH</div>
+        <form @submit.prevent="searchCards">
+          <div class="search__field">
+            <input
+              v-model="searchInput"
+              id="search-bar"
+              type="text"
+              placeholder="Enter card name here..."
+            />
+            <button class="icon__box">
+              <img class="icon" src="/icon-search.svg" alt="search" />
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
     <div class="search__body">
       <CardsDisplay :cards="cards" />
@@ -65,12 +67,22 @@ function searchCards() {
 
 <style lang="scss" scoped>
 .search {
-  --shadow-color: rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
+  color: #94a5bc;
+  padding: 1.5rem;
+  margin-bottom: 20px;
+}
+.search__actual {
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 547px;
   color: #94a5bc;
   background-color: #0d2037;
   border-radius: 1rem;
