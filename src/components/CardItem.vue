@@ -30,7 +30,6 @@ function getDate(timestamp) {
       display: inline-block;
       text-decoration: none;
       color: black;
-      font-family: 'Oswald', sans-serif;
     "
   >
     <div class="card">
@@ -78,8 +77,8 @@ function getDate(timestamp) {
   gap: 1rem;
   width: 100%;
   max-width: 350px;
-  color: #8bacd9;
-  background-color: #15263f;
+  color: #4A82E7;
+  background-color: #0D2037;
   border-radius: 1rem;
   box-shadow: 0px 0px 20px 20px var(--shadow-color);
   padding: 1.5rem;
@@ -129,7 +128,7 @@ function getDate(timestamp) {
 }
 
 .card__name {
-  color: white;
+  color: #D3E2FC;
   font-weight: 600;
   font-size: 1.5rem;
   letter-spacing: 1px;
@@ -159,12 +158,12 @@ function getDate(timestamp) {
   }
 
   .card__category {
-    color: #00fff8;
+    color: #FFCB2B;
     font-weight: 600;
   }
 
   .card__time {
-    color: #a89ec9;
+    color: #AFCBFB;
     font-weight: 100;
   }
 }

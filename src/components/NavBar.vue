@@ -102,26 +102,27 @@ const categories = ref([
 .navbar-menu {
   display: flex;
   justify-content: space-between;
-  background-color: #202124;
+  background-color: #021524;
   padding: 10px 20px;
   .menu-logo {
     margin-right: 20px;
-    color: white;
+    color: #FFCB2B;
   }
   .menu-item {
     margin: 0px 10px;
-    color: white;
+    color: #D3E2FC;
   }
   .menu-item a {
     text-decoration: none;
-    color: white;
+    color: #D3E2FC;
   }
   .menu-item a:visited {
-    color: white;
+    color: #D3E2FC;
   }
 
   .menu-item:hover {
     transform: scale(1.03);
+    color: #94A5BC;
   }
 }
 .navbar-menu-left {
@@ -138,7 +139,7 @@ const categories = ref([
 
 .navbar-menu-dropdown-content {
   position: absolute;
-  background-color: #333;
+  background-color: #0D2037;
   min-width: 120px;
   z-index: 1;
 
@@ -149,14 +150,15 @@ const categories = ref([
 }
 
 .navbar-menu-dropdown-content a {
-  color: white;
+  color: #D3E2FC;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
 }
 
 .navbar-menu-dropdown-content a:hover {
-  background-color: #555;
+  background-color: #162D47;
+  color: #94A5BC;
 }
 
 .slide-enter {

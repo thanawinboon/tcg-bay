@@ -3,7 +3,6 @@ import { ref, onMounted } from 'vue'
 import CardsDisplay from '@/components/CardsDisplay.vue'
 import { db } from '@/js/firebase.js'
 import { collection, onSnapshot } from 'firebase/firestore'
-// TODO: Show some fancy TCG wallpaper plus website's name ???
 
 const cards = ref([]);
 async function getCards() {
@@ -58,9 +57,8 @@ onMounted(async () => {
   margin-bottom: 20px;
   text-align: center;
   align-items: center;
-  color: white;
+  color: #D3E2FC;
   justify-content: center;
 }
 
 </style>
-

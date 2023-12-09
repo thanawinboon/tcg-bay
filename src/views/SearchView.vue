@@ -70,7 +70,6 @@ function searchCards() {
   text-align: center;
   align-items: center;
   justify-content: center;
-  color: white;
   margin-bottom: 20px;
 }
 

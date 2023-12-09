@@ -29,7 +29,6 @@ const props = defineProps({
   margin-bottom: 20px;
   text-align: center;
   align-items: center;
-  color: white;
   justify-content: center;
 }
 .category-body {
