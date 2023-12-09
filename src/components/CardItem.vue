@@ -163,6 +163,7 @@ function getDate(timestamp) {
   }
 
   .card__time {
+    color: #8BACD9;
     font-weight: 100;
   }
 }
