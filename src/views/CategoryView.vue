@@ -69,7 +69,6 @@ onMounted(async () => {
 }
 .category-body {
   margin-bottom: 20px;
-  text-align: center;
   align-items: center;
   justify-content: center;
 }
