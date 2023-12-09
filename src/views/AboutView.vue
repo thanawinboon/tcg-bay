@@ -12,6 +12,7 @@
     align-items: center;
   }
 }
+
 </style>
 
 // TODO: Describe the team ??
