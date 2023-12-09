@@ -84,8 +84,19 @@ onMounted(() => {
             </div>
           </transition>
         </span>
-        <span class="menu-item" :class="{ 'current-page': $route.path === '/my-profile' }">
-          <RouterLink :to="{ path: '/my-profile' }">Profile</RouterLink>
+        <span
+          class="menu-item"
+          v-if="!isLoggedIn"
+          :class="{ 'current-page': $route.path === '/login' }"
+        >
+          <RouterLink to="/login">Login</RouterLink>
+        </span>
+        <span
+          class="menu-item"
+          v-if="isLoggedIn"
+          :class="{ 'current-page': $route.path === '/my-profile' }"
+        >
+          <RouterLink to="/login">Profile</RouterLink>
         </span>
         <span
           class="menu-item"
