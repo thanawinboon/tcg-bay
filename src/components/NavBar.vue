@@ -1,12 +1,24 @@
 <script setup>
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { auth } from '@/js/firebase'
 
 const isDropped = ref(false)
+const isLoggedIn = ref(false)
 
 const toggleDropdown = (value) => {
   isDropped.value = value
 }
+
+onMounted(() => {
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      isLoggedIn.value = true
+    } else {
+      isLoggedIn.value = false
+    }
+  })
+})
 
 const categories = ref([
   {
@@ -64,10 +76,10 @@ const categories = ref([
           </transition>
         </span>
         <span class="menu-item">
-          <RouterLink to="/register">Register</RouterLink>
-        </span>
-        <span class="menu-item">
           <RouterLink to="/profile">Profile</RouterLink>
+        </span>
+        <span class="menu-item" v-if="!isLoggedIn">
+          <RouterLink to="/register">Register</RouterLink>
         </span>
       </div>
       
