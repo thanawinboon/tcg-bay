@@ -54,7 +54,7 @@ onMounted(() => {
     <nav class="navbar-menu">
       <div class="navbar-menu-left">
         <span class="menu-logo">
-          <h1>LOGO HERE</h1>
+          <h1>LOGO_HERE</h1>
         </span>
         <span class="menu-item">
           <RouterLink to="/">Home</RouterLink>
@@ -74,7 +74,7 @@ onMounted(() => {
           @mouseover="toggleDropdown(true)"
           @mouseleave="toggleDropdown(false)"
         >
-          <a href="#" class="dropbtn">Category &#9662;</a>
+          <a href="#" class="dropbtn">Category&#9662;</a>
           <transition name="slide">
             <div class="navbar-menu-dropdown-content" v-if="isDropped">
               <router-link
