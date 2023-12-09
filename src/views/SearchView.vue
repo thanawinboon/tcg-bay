@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import CardsDisplay from '@/components/CardsDisplay.vue'
 import { db } from '@/js/firebase.js'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
-// TODO: Show some fancy TCG wallpaper plus website's name ???
 
 const cards = ref([])
 const searchInput = ref('')
@@ -38,74 +37,95 @@ function searchCards() {
     }
   })
 }
-
-// TODO: Add search page
-// - Display all cards showing each one's image, name, owner's username (AND RATING), category
-// - Has a textbox for input
-// - Can sort cards
 </script>
 
 <template>
   <div id="search">
-    <div class="search-header">
-      <h2>Search</h2>
-      <form class="search-container" @submit.prevent="searchCards">
-        <input
-          v-model="searchInput"
-          type="text"
-          id="search-bar"
-          placeholder="Enter card name here..."
-        />
-        <button>
-          <img
-            class="search-icon"
-            src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"
-            alt="search"
+    <div class="search">
+      <div class="search__text">SEARCH</div>
+      <form @submit.prevent="searchCards">
+        <div class="search__field">
+          <input
+            v-model="searchInput"
+            id="search-bar"
+            type="text"
+            placeholder="Enter card name here..."
           />
-        </button>
+          <button class="icon__box">
+            <img class="icon" src="/icon-search.svg" alt="search" />
+          </button>
+        </div>
       </form>
     </div>
-    <div class="search-body">
+    <div class="search__body">
       <CardsDisplay :cards="cards" />
     </div>
   </div>
 </template>
 
-<style scoped>
-#search {
-  margin-top: 60px;
-  width: 100%;
-  padding: 0 10px;
-}
-.search-header {
+<style lang="scss" scoped>
+.search {
+  --shadow-color: rgba(0, 0, 0, 0.05);
   display: flex;
-  text-align: center;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-}
-
-.search-container {
-  display: flex;
   width: 100%;
-  margin: 0 20px;
+  color: #94a5bc;
+  background-color: #0d2037;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.418);
+  padding: 1.5rem;
 }
-
-input#search-bar {
+.search__text {
+  font-size: 40px;
+  color: #7dacf9;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+form {
+  .search__field {
+    margin-top: 20px;
+    display: flex;
+    width: 500px;
+    .icon__box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 50px;
+      width: 60px;
+      color: #94a5bc;
+      border-radius: 0 5px 5px 0;
+      border: 1px solid #485c73;
+      border-right: none;
+      background: #021524;
+      cursor: pointer;
+      .icon {
+        max-width: 30px;
+        max-height: 30px;
+      }
+    }
+    .icon__box:hover {
+      border: 1px solid #7dacf9;
+      background: #0f2137;
+    }
+  }
+}
+input {
+  height: 50px;
   width: 100%;
-  max-width: 1000px;
-  height: 35px;
-  padding: 0 20px;
-  font-size: 1rem;
-  border: none;
   outline: none;
-  border-radius: 5px;
+  font-size: 19px;
+  color: #99a8c2;
+  padding: 0 15px;
+  border-radius: 5px 0 0 5px;
+  border: 1px solid #485c73;
+  caret-color: white;
+  background: #051726;
 }
-
-.search-icon {
-  position: relative;
-  float: right;
-  max-width: 30px;
-  max-height: 30px;
+input:focus {
+  color: #7dacf9;
+  background: #0f2137;
+  border: 1px solid #7dacf9;
 }
 </style>
