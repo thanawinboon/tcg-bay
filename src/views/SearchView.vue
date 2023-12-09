@@ -8,7 +8,6 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 const cards = ref([]);
 const searchInput = ref('')
 
-
 function searchCards() {
   console.log('Searching for cards')
   const cardsCollection = collection(db, 'cards');
