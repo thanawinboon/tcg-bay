@@ -21,44 +21,59 @@ function getDate(timestamp) {
   }
   return `${yyyy}-${mm}-${dd}`
 }
+</script>
 
+<script>
+export default {
+  data: () => ({
+    show: false
+  })
+}
 </script>
 
 <template>
-  <RouterLink
-    :to="{ name: 'card-details', params: { id: props.card.id } }"
-    style="display: inline-block; text-decoration: none; color: black"
-  >
-    <div class="card">
-      <div class="artwork">
-        <img class="card__img" alt="product-image" :src="props.card.imageUrl">
-        
-      </div>
-
-      <h3 class="card__name">{{ props.card.name }}</h3>
-      <p class="card__note">{{ props.card.note }}</p>
-
-      <div class="card__extra">
-        <h6 class="card__category">
-          {{ props.card.category }}
-        </h6>
-        <h6 class="card__time">
-          <img src="/icon-clock.svg" alt="clock" />
-          {{ getDate(props.card.time.seconds * 1000) }}
-        </h6>
-      </div>
-      <div class="line"></div>
-
-      <div class="card__owner">
-        <div class="profile-photo">
-          <!-- display image -->
-        </div>
-        <p>
-          <span>Owned by</span> <span class="name">{{ props.card.owner }}</span>
-        </p>
-      </div>
+  <div class="card">
+    <div class="artwork">
+      <img class="card__img" alt="product-image" :src="props.card.imageUrl" />
     </div>
-  </RouterLink>
+
+    <h3 class="card__name">{{ props.card.name }}</h3>
+
+    <div class="card__extra">
+      <h6 class="card__category">
+        {{ props.card.category }}
+      </h6>
+      <h6 class="card__time">
+        <img src="/icon-clock.svg" alt="clock" />
+        {{ getDate(props.card.time.seconds * 1000) }}
+      </h6>
+    </div>
+    <div class="line"></div>
+    <div class="card__owner">
+      <div class="profile-photo">
+        <!-- display image -->
+      </div>
+      <p>
+        <span>Owned by</span> <span class="name">{{ props.card.owner }}</span>
+      </p>
+    </div>
+
+    <v-card>
+      <v-card-actions>
+        <div class="card__revealer">
+          <v-btn icon @click="show = !show">
+            <v-icon>{{ show ? ' &#9650;' : '&#9660;' }}</v-icon>
+          </v-btn>
+        </div>
+      </v-card-actions>
+      <v-expand-transition>
+        <div v-show="show">
+          <div class="line"></div>
+          <p class="card__note">{{ props.card.note }}</p>
+        </div>
+      </v-expand-transition>
+    </v-card>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -66,7 +81,7 @@ function getDate(timestamp) {
   --shadow-color: rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 1rem;
   width: 100%;
   max-width: 350px;
@@ -78,11 +93,13 @@ function getDate(timestamp) {
 }
 
 .artwork {
-  width: 100%;
+  width: 302px;
+  height: 302px;
   background-color: black;
   aspect-ratio: 1/1;
   border-radius: 0.5rem;
   display: flex;
+  flex: none;
   justify-content: center;
   align-items: center;
   overflow: hidden;
@@ -137,6 +154,7 @@ function getDate(timestamp) {
   font-size: 18px;
   font-weight: 300;
   line-height: 25px;
+  margin-top: 16px;
 }
 
 .card__extra {
@@ -159,6 +177,13 @@ function getDate(timestamp) {
     color: #8bacd9;
     font-weight: 100;
   }
+}
+
+.card__revealer {
+  display: flex;
+  text-align: right;
+  justify-content: right;
+  align-items: right;
 }
 
 .line {

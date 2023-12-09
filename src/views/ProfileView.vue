@@ -1,10 +1,4 @@
 <script setup>
-// TODO: Add profile page 
-// - Show profile information
-// - Display all cards showing each one's image, name, category
-// - Show either inventory or desired cards
-// - Has an upload button
-// - Has a rate user button
 import { ref, onMounted } from 'vue'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/js/firebase'
@@ -16,19 +10,19 @@ import { collection, onSnapshot, query, where } from 'firebase/firestore'
 import CardsDisplay from '@/components/CardsDisplay.vue'
 
 const props = defineProps({
-    userId: { 
-      required: false,
-      default: null,
-      type: String
-    }
+  userId: {
+    required: false,
+    default: null,
+    type: String
+  }
 })
 
-const cards = ref([]);
+const cards = ref([])
 const currentUser = ref(null)
 
 function userCards(userId) {
-  const cardsCollection = collection(db, 'cards');
-  const queryCards = query(cardsCollection, where('owner', '==', userId));
+  const cardsCollection = collection(db, 'cards')
+  const queryCards = query(cardsCollection, where('owner', '==', userId))
   onSnapshot(queryCards, (querySnapshot) => {
     try {
       let cardsSnapshot = []
@@ -41,7 +35,7 @@ function userCards(userId) {
           note: doc.data().note,
           time: doc.data().time,
           owner: doc.data().owner,
-          imageUrl: doc.data().imageUrl,
+          imageUrl: doc.data().imageUrl
         }
         cardsSnapshot.push(card)
       })
@@ -54,8 +48,8 @@ function userCards(userId) {
 }
 
 function getUser() {
-  const usersCollection = collection(db, 'users');
-  const queryCards = query(usersCollection, where('id', '==', props.userId));
+  const usersCollection = collection(db, 'users')
+  const queryCards = query(usersCollection, where('id', '==', props.userId))
   onSnapshot(queryCards, (querySnapshot) => {
     try {
       querySnapshot.forEach((doc) => {
@@ -63,11 +57,10 @@ function getUser() {
         let user = {
           id: doc.id,
           // name: doc.data().name,
-          name: "temp",
+          name: 'temp'
         }
         currentUser.value = user
       })
-
     } catch (error) {
       console.error('Error fetching cards:', error)
     }
@@ -75,14 +68,15 @@ function getUser() {
 }
 
 onMounted(() => {
-  if (props.userId) { // if a userId is specified, display that person's profile
+  if (props.userId) {
+    // if a userId is specified, display that person's profile
     getUser()
     userCards(props.userId)
   } else {
     auth.onAuthStateChanged((user) => {
       if (user) {
         currentUser.value = user
-        console.log("Current user is: " + currentUser.value.email)
+        console.log('Current user is: ' + currentUser.value.email)
         console.log(auth.currentUser)
         console.log(currentUser.value.uid)
         userCards(currentUser.value.uid)
@@ -116,13 +110,13 @@ function userSignOut() {
     </div>
 
     <div class="profile-body">
-      <hr/>
+      <hr />
       <h3>Owned cards</h3>
-      <CardsDisplay :cards="cards"/>
+      <CardsDisplay :cards="cards" />
     </div>
 
     <div class="usersettings" v-if="!userId">
-      <hr/>
+      <hr />
       <div>
         <h1>User Settings</h1>
         <p>Current user: {{ currentUser.email }}</p>
@@ -141,11 +135,11 @@ function userSignOut() {
 }
 
 hr {
-    display: block;
-    height: 1px;
-    border: 0;
-    border-top: 1px solid #ccc;
-    margin: 30px 0;
-    padding: 0;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 30px 0;
+  padding: 0;
 }
 </style>
