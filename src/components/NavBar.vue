@@ -109,11 +109,13 @@ onMounted(() => {
   left: 0;
   width: 100%;
   z-index: 9;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background-color: #061b2b;
 }
 .navbar-menu {
   display: flex;
   justify-content: space-between;
-  background-color: #061b2b;
   padding: 10px 20px;
   .menu-logo {
     margin-right: 20px;
