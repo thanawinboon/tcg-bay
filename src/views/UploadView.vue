@@ -4,12 +4,13 @@
 // - Has button to select either owned or desired
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { auth } from '@/js/firebase'
 import { 
   collection, 
   addDoc, 
   serverTimestamp, 
+  onSnapshot,
 } from 'firebase/firestore';
 import { 
   getDownloadURL,
@@ -49,8 +50,6 @@ async function uploadCard() {
 
     // get user id and get user's cards collection
     const user = auth.currentUser;
-    // const userRef = collection(db, 'users', user.uid, 'cards');
-    // const userCardsCollectionRef = collection(userRef, 'cards');
     const userCardsCollectionRef = collection(db, 'cards');
 
     const docRef = await addDoc(userCardsCollectionRef, {
@@ -69,6 +68,33 @@ async function uploadCard() {
   }
 }
 
+
+const categories = ref([
+  {
+    name: 'Temp'
+  }
+])
+function getCategories() {
+  onSnapshot(collection(db, 'categories'), (querySnapshot) => {
+    try {
+      let categorySnapshot = []
+      querySnapshot.forEach((doc) => {
+        let category = {
+          name: doc.data().name
+        }
+        categorySnapshot.push(category)
+      })
+      categories.value = categorySnapshot
+    } catch (error) {
+      console.error('Error fetching cards:', error)
+    }
+  })
+}
+
+onMounted(() => {
+  getCategories()
+})
+
 </script>
 
 <template>
@@ -81,7 +107,13 @@ async function uploadCard() {
       </div>
 
       <div class="upload__field">
-        <input v-model="category" id="category" type="text" placeholder="This shouldn't be text, make a dropdown" />
+        <label for="category">Select a category:</label>
+        <select id="category" v-model="selectedCategory">
+          <option disabled value="">Please select one</option>
+          <option v-for="(category, index) in categories" :key="index" :value="category">
+            {{ category.name }}
+          </option>
+        </select>
       </div>
 
       <div class="upload__field">

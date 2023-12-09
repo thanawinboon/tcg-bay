@@ -1,5 +1,5 @@
 <script setup>
-defineProps({
+const props = defineProps({
   card: {
     type: Object,
     required: true
@@ -21,33 +21,30 @@ function getDate(timestamp) {
   }
   return `${yyyy}-${mm}-${dd}`
 }
+
 </script>
 
 <template>
   <RouterLink
-    :to="{ name: 'card-details', params: { id: card.id } }"
+    :to="{ name: 'card-details', params: { id: props.card.id } }"
     style="display: inline-block; text-decoration: none; color: black"
   >
     <div class="card">
       <div class="artwork">
-        <!-- <img 
-        class="card__img"
-        alt="product-image" 
-        :src="require('@/static/images/' + img)"
-      > -->
-        <!-- display image -->
+        <img class="card__img" alt="product-image" :src="props.card.imageUrl">
+        
       </div>
 
-      <h3 class="card__name">{{ card.name }}</h3>
-      <p class="card__note">{{ card.note }}</p>
+      <h3 class="card__name">{{ props.card.name }}</h3>
+      <p class="card__note">{{ props.card.note }}</p>
 
       <div class="card__extra">
         <h6 class="card__category">
-          {{ card.category }}
+          {{ props.card.category }}
         </h6>
         <h6 class="card__time">
           <img src="/icon-clock.svg" alt="clock" />
-          {{ getDate(card.time.seconds * 1000) }}
+          {{ getDate(props.card.time.seconds * 1000) }}
         </h6>
       </div>
       <div class="line"></div>
@@ -57,7 +54,7 @@ function getDate(timestamp) {
           <!-- display image -->
         </div>
         <p>
-          <span>Owned by</span> <span class="name">{{ card.owner }}</span>
+          <span>Owned by</span> <span class="name">{{ props.card.owner }}</span>
         </p>
       </div>
     </div>

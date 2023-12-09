@@ -26,7 +26,8 @@ function searchCards() {
           name: doc.data().name,
           note: doc.data().note,
           time: doc.data().time,
-          owner: doc.data().owner
+          owner: doc.data().owner,
+          imageUrl: doc.data().imageUrl,
         }
         cardsSnapshot.push(card)
       })
