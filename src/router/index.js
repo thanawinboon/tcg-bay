@@ -46,9 +46,15 @@ const router = createRouter({
       component: () => import('../views/LoginView.vue')
     },
     {
-      path: '/profile',
-      name: 'profile',
+      path: '/my-profile',
+      name: 'my-profile',
       component: () => import('../views/ProfileView.vue')
+    },
+    {
+      path: '/profile/:user',
+      name: 'user-profile',
+      props: true,
+      component: () => import('../views/ProfileView.vue'),
     },
   ]
 })
@@ -61,7 +67,7 @@ router.beforeEach((to, from, next) => {
 
   if (to.name === "login" && isLoggedIn) {
     console.log("User is already logged in, redirecting to profile");
-    next({ name: "profile" });
+    next({ name: "my-profile" });
   } else if (to.name === "profile" && !isLoggedIn) {
     console.log("Login users only");
     next({ name: "login" });

@@ -1,16 +1,43 @@
 <script setup>
 import { RouterLink } from 'vue-router'
 import { ref, onMounted } from 'vue'
+import { db } from '@/js/firebase.js'
+import { collection, onSnapshot } from 'firebase/firestore'
 import { auth } from '@/js/firebase'
+
 
 const isDropped = ref(false)
 const isLoggedIn = ref(false)
+const categories = ref([
+  {
+    name: 'Temp',
+  },
+])
+
+function getCategories() {
+  onSnapshot(collection(db, 'categories'), (querySnapshot) => {
+    try {
+      
+      let categorySnapshot = []
+      querySnapshot.forEach((doc) => {
+        let category = {
+          name: doc.data().name,
+        }
+        categorySnapshot.push(category)
+      })
+      categories.value = categorySnapshot
+    } catch (error) {
+      console.error('Error fetching cards:', error)
+    }
+  })
+}
 
 const toggleDropdown = (value) => {
   isDropped.value = value
 }
 
 onMounted(() => {
+  getCategories()
   auth.onAuthStateChanged((user) => {
     if (user) {
       isLoggedIn.value = true
@@ -20,17 +47,6 @@ onMounted(() => {
   })
 })
 
-const categories = ref([
-  {
-    name: 'CategoryA',
-  },
-  {
-    name: 'CategoryB',
-  },
-  {
-    name: 'CategoryC',
-  }
-])
 
 </script>
 
@@ -76,7 +92,7 @@ const categories = ref([
           </transition>
         </span>
         <span class="menu-item">
-          <RouterLink to="/profile">Profile</RouterLink>
+          <RouterLink :to="{path: '/my-profile'}">Profile</RouterLink>
         </span>
         <span class="menu-item" v-if="!isLoggedIn">
           <RouterLink to="/register">Register</RouterLink>
@@ -110,7 +126,7 @@ const categories = ref([
     color: #FFCB2B;
   }
   .menu-item {
-    margin: 0px 10px;
+    margin: 10px;
     color: #D3E2FC;
   }
   .menu-item a {
@@ -122,7 +138,7 @@ const categories = ref([
   }
 
   .menu-item:hover {
-    transform: scale(1.03);
+    background-color: #162D47;
     color: #94A5BC;
   }
 }
