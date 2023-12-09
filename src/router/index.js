@@ -56,6 +56,12 @@ const router = createRouter({
       props: true,
       component: () => import('../views/ProfileView.vue'),
     },
+    
+    {
+      path: '/upload',
+      name: 'upload',
+      component: () => import('../views/UploadView.vue')
+    },
   ]
 })
 
@@ -64,11 +70,11 @@ router.beforeEach((to, from, next) => {
   console.log('to :' + to.name)
 
   const isLoggedIn = auth.currentUser
-
+  console.log('Is logged in: ' + isLoggedIn)
   if (to.name === "login" && isLoggedIn) {
     console.log("User is already logged in, redirecting to profile");
     next({ name: "my-profile" });
-  } else if (to.name === "profile" && !isLoggedIn) {
+  } else if (to.name === "my-profile" && !isLoggedIn) {
     console.log("Login users only");
     next({ name: "login" });
   } else {

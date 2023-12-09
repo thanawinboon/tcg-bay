@@ -1,14 +1,16 @@
 <script setup>
-import { ref } from 'vue'
-import { auth } from '@/js/firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import router from '@/router/index.js'
+import { ref } from 'vue';
+import { db, auth } from '@/js/firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore"; 
+import router from '@/router/index.js';
 
+const username = ref(null)
 const email = ref(null)
 const password = ref(null)
 
 function submitForm() {
-  console.log('Register : ' + email.value + ' : ' + password.value)
+  console.log( `Username: ${username.value}, Email: ${email.value}, Password: ${password.value}` )
 
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
@@ -16,6 +18,13 @@ function submitForm() {
       const user = userCredential.user
       console.log(user)
       console.log(userCredential)
+
+      const userRef = doc(db, 'users', user.uid);
+      setDoc(userRef, {
+        username: username.value,
+        email: email.value,
+        // password: password.value,
+      });
       router.push('/')
     })
     .catch((error) => {
@@ -31,19 +40,27 @@ function submitForm() {
   <div class="register">
     <div class="register__text">REGISTER</div>
     <form @submit.prevent="submitForm">
+      
+      <div class="register__field">
+        <input v-model="username" id="name" type="text" placeholder="Username" />
+      </div>
+
       <div class="register__field">
         <div class="icon__box">
           <img class="icon" src="/icon-email.svg" alt="email" />
         </div>
         <input v-model="email" id="email" type="text" placeholder="Email" />
       </div>
+
       <div class="register__field">
         <div class="icon__box">
           <img class="icon" src="/icon-password.svg" alt="password" />
         </div>
         <input v-model="password" id="password" type="password" placeholder="Password" />
       </div>
+
       <button type="submit">Register</button>
+
     </form>
   </div>
 </template>

@@ -94,6 +94,14 @@ onMounted(() => {
         >
           <RouterLink to="/register">Register</RouterLink>
         </span>
+        
+        <span
+          class="menu-item"
+          v-if="isLoggedIn"
+          :class="{ 'current-page': $route.path === '/upload' }"
+        >
+          <RouterLink to="/upload">Upload</RouterLink>
+        </span>
       </div>
 
       <div class="navbar-menu-right"></div>

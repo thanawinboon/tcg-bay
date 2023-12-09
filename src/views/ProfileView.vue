@@ -115,6 +115,8 @@ function userSignOut() {
     </div>
 
     <div class="profile-body">
+      <hr/>
+      <h3>Owned cards</h3>
       <CardsDisplay :cards="cards"/>
     </div>
 
@@ -134,6 +136,7 @@ function userSignOut() {
   text-align: center;
   width: 100%;
   padding: 0 10px;
+  margin-bottom: 60px;
 }
 
 hr {
@@ -141,7 +144,7 @@ hr {
     height: 1px;
     border: 0;
     border-top: 1px solid #ccc;
-    margin: 1em 0;
+    margin: 30px 0;
     padding: 0;
 }
 </style>
