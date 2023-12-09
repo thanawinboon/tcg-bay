@@ -178,6 +178,7 @@ function getDate(timestamp) {
 
   .profile-photo {
     display: flex;
+    flex-shrink: 0;
     justify-content: center;
     align-items: center;
     width: 2rem;

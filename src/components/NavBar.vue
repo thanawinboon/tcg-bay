@@ -117,8 +117,6 @@ onMounted(() => {
   left: 0;
   width: 100%;
   z-index: 9;
-  overflow-x: auto;
-  overflow-y: hidden;
   background-color: #061b2b;
 }
 .navbar-menu {

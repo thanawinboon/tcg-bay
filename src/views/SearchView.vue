@@ -109,7 +109,6 @@ form {
       color: #94a5bc;
       border-radius: 0 5px 5px 0;
       border: 1px solid #485c73;
-      border-right: none;
       background: #021524;
       cursor: pointer;
       .icon {
