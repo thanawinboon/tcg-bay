@@ -98,6 +98,7 @@ const categories = ref([
   top: 0;
   left: 0;
   width: 100%;
+  z-index: 9;
 }
 .navbar-menu {
   display: flex;
@@ -141,7 +142,7 @@ const categories = ref([
   position: absolute;
   background-color: #0D2037;
   min-width: 120px;
-  z-index: 1;
+  z-index: 10;
 
   transform-origin: top;
   transition: .33s ease-in-out;
