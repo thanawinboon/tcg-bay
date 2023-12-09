@@ -102,7 +102,7 @@ const categories = ref([
 .navbar-menu {
   display: flex;
   justify-content: space-between;
-  background-color: #021524;
+  background-color: #061B2B;
   padding: 10px 20px;
   .menu-logo {
     margin-right: 20px;

@@ -23,7 +23,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 main {
-  background: var(--main-bg);
   padding: 2rem;
   display: flex;
   align-items: center;

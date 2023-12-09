@@ -77,10 +77,10 @@ function getDate(timestamp) {
   gap: 1rem;
   width: 100%;
   max-width: 350px;
-  color: #4A82E7;
+  color: #94A5BC;
   background-color: #0D2037;
   border-radius: 1rem;
-  box-shadow: 0px 0px 20px 20px var(--shadow-color);
+  box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.418);
   padding: 1.5rem;
 }
 
@@ -110,7 +110,7 @@ function getDate(timestamp) {
     }
 
     &::before {
-      background: var(--cyan);
+      background: #0D2037;
       opacity: 0.5;
     }
 
@@ -128,19 +128,19 @@ function getDate(timestamp) {
 }
 
 .card__name {
-  color: #D3E2FC;
+  color: #4A82E7;
   font-weight: 600;
   font-size: 1.5rem;
   letter-spacing: 1px;
 
   &:hover {
-    color: var(--cyan);
+    color: white;
     cursor: pointer;
   }
 }
 
 .card__note {
-  color: var(--soft-blue);
+  color: #99A8C2;
   font-size: 18px;
   font-weight: 300;
   line-height: 25px;
@@ -163,7 +163,6 @@ function getDate(timestamp) {
   }
 
   .card__time {
-    color: #AFCBFB;
     font-weight: 100;
   }
 }
@@ -171,7 +170,7 @@ function getDate(timestamp) {
 .line {
   height: 1px;
   width: 100%;
-  background: #2e415a;
+  background: #172B3C;
 }
 
 .card__owner {
@@ -187,7 +186,7 @@ function getDate(timestamp) {
     width: 2rem;
     background-color: black;
     aspect-ratio: 1/1;
-    border: 1px solid var(--white);
+    border: 1px solid white;
     border-radius: 100%;
 
     img {
@@ -196,14 +195,13 @@ function getDate(timestamp) {
   }
 
   span {
-    color: var(--soft-blue);
     font-weight: 300;
 
     &.name {
       color: white;
 
       &:hover {
-        color: var(--cyan);
+        color: #D3E2FC;
         cursor: pointer;
       }
     }
