@@ -74,7 +74,6 @@ export default {
         </RouterLink>
       </p>
     </div>
-
     <div class="card__revealer">
       <div class="card__revealer__icon" @click="show = !show">
         <span>{{ show ? ' &#9650;' : '&#9660;' }}</span>
@@ -192,6 +191,9 @@ export default {
   text-align: right;
   justify-content: right;
   align-items: right;
+  position: absolute;
+  margin-top: 426px;
+  margin-left: 280px;
   .card__revealer__icon {
     color: #8bacd9;
     &:hover {
