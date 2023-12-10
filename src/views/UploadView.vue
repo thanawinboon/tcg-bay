@@ -176,6 +176,10 @@ form {
         max-height: 30px;
       }
     }
+
+    label {
+      margin: 0 10px;
+    }
   }
 }
 input,

@@ -70,10 +70,11 @@ watch(route, () => {
   } else {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        currentUser.value = user
-        console.log('Current user is: ' + currentUser.value.email)
-        console.log(auth.currentUser)
-        console.log(currentUser.value.uid)
+        currentUser.value = {
+          id: user.uid,
+          email: user.email,
+          username: user.displayName
+        }
         userCards(currentUser.value.uid)
       } else {
         currentUser.value = null
@@ -90,10 +91,11 @@ onMounted(() => {
   } else {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        currentUser.value = user
-        console.log('Current user is: ' + currentUser.value.email)
-        console.log(auth.currentUser)
-        console.log(currentUser.value.uid)
+        currentUser.value = {
+          id: user.uid,
+          email: user.email,
+          username: user.displayName
+        }
         userCards(currentUser.value.uid)
       } else {
         currentUser.value = null
@@ -120,8 +122,8 @@ function userSignOut() {
     <div class="profile-header">
       <h3 v-if="userId">Profile</h3>
       <h3 v-else>My Profile</h3>
-      <!-- TODO: change this to username (if there's one) -->
-      <h1>{{ currentUser.email }}</h1>
+      <h1>{{ currentUser.username }}</h1>
+      <h3>{{ currentUser.email }}</h3>
     </div>
 
     <div class="profile-body">
@@ -135,6 +137,7 @@ function userSignOut() {
       <div>
         <h1>User Settings</h1>
         <p>Current user: {{ currentUser.email }}</p>
+        <p>ID: {{ currentUser.id }}</p>
         <button @click.prevent="userSignOut">Sign Out</button>
       </div>
     </div>

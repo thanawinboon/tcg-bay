@@ -51,15 +51,10 @@ onMounted(() => {
     <nav class="navbar-menu">
       <div class="navbar-menu-left">
         <span class="menu-logo">
-          <h1>LOGO_HERE</h1>
+          <h1>TCG BAY</h1>
         </span>
         <span class="menu-item" :class="{ 'current-page': $route.path === '/' }">
           <RouterLink to="/">Home</RouterLink>
-        </span>
-
-        <!-- DELETE ABOUT LATER -->
-        <span class="menu-item" :class="{ 'current-page': $route.path === '/about' }">
-          <RouterLink to="/about">About</RouterLink>
         </span>
 
         <span class="menu-item" :class="{ 'current-page': $route.path === '/search' }">
