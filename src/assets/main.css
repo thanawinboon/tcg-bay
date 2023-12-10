@@ -6,7 +6,7 @@
   font-family: 'Nunito', sans-serif;
   font-weight: normal;
   background-color: #021524;
-  color: #99A8C2;
+  color: #99a8c2;
 }
 
 .green {
@@ -14,7 +14,6 @@
   color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
 }
-
 
 @media (min-width: 370px) {
   body {

@@ -1,30 +1,30 @@
 <script setup>
-import { ref } from 'vue';
-import { db, auth } from '@/js/firebase';
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore"; 
-import router from '@/router/index.js';
+import { ref } from 'vue'
+import { db, auth } from '@/js/firebase'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { doc, setDoc } from 'firebase/firestore'
+import router from '@/router/index.js'
 
 const username = ref(null)
 const email = ref(null)
 const password = ref(null)
 
 function submitForm() {
-  console.log( `Username: ${username.value}, Email: ${email.value}, Password: ${password.value}` )
+  console.log(`Username: ${username.value}, Email: ${email.value}, Password: ${password.value}`)
 
   createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user
       updateProfile(user, {
-        displayName: username.value,
+        displayName: username.value
       })
-      const userRef = doc(db, 'users', user.uid);
+      const userRef = doc(db, 'users', user.uid)
       setDoc(userRef, {
         username: username.value,
-        email: email.value,
+        email: email.value
         // password: password.value,
-      });
+      })
       router.push('/')
     })
     .catch((error) => {
@@ -40,7 +40,6 @@ function submitForm() {
   <div class="register">
     <div class="register__text">REGISTER</div>
     <form @submit.prevent="submitForm">
-      
       <div class="register__field">
         <input v-model="username" id="name" type="text" placeholder="Username" />
       </div>
@@ -60,7 +59,6 @@ function submitForm() {
       </div>
 
       <button type="submit">Register</button>
-
     </form>
   </div>
 </template>

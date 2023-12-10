@@ -100,7 +100,7 @@ onMounted(() => {
         >
           <RouterLink to="/register">Register</RouterLink>
         </span>
-        
+
         <span
           class="menu-item"
           v-if="isLoggedIn"

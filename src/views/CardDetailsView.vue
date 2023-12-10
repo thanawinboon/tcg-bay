@@ -4,7 +4,7 @@ import { useRoute } from 'vue-router'
 import { db, auth } from '@/js/firebase.js'
 import { doc, onSnapshot, deleteDoc } from 'firebase/firestore'
 import { getDate } from '@/js/utils.js'
-import router from '@/router/index.js';
+import router from '@/router/index.js'
 
 const props = defineProps({
   cardId: {
@@ -57,8 +57,8 @@ function isOwner() {
 }
 
 async function deleteCard() {
-  await deleteDoc(doc(db, "cards", props.cardId));
-  router.push({ name: 'my-profile'})
+  await deleteDoc(doc(db, 'cards', props.cardId))
+  router.push({ name: 'my-profile' })
 }
 </script>
 

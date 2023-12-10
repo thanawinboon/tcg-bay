@@ -1,56 +1,46 @@
-// TODO: Add upload page 
-// - Has drop image or browse to upload feature
-// - Has dropdown to choose category, textbox for name and note
-// - Has button to select either owned or desired
-
 <script setup>
 import { ref, onMounted } from 'vue'
 import { auth } from '@/js/firebase'
-import { 
-  collection, 
-  addDoc, 
-  serverTimestamp, 
-  onSnapshot,
-} from 'firebase/firestore';
-import { 
+import { collection, addDoc, serverTimestamp, onSnapshot } from 'firebase/firestore'
+import {
   getDownloadURL,
   getStorage,
   ref as storageRef,
-  uploadBytesResumable,
-} from 'firebase/storage';
+  uploadBytesResumable
+} from 'firebase/storage'
 import { db } from '@/js/firebase.js'
-import router from '@/router/index.js';
+import router from '@/router/index.js'
 
-const name = ref("");
-const category = ref("");
-const note = ref("");
-const uploadedImage = ref(null);
+const name = ref('')
+const category = ref('')
+const note = ref('')
+const uploadedImage = ref(null)
 
 // probably monitors the file upload
 async function handleFileUpload(event) {
-  const file = event.target.files[0];
-  uploadedImage.value = file;
+  const file = event.target.files[0]
+  uploadedImage.value = file
 }
 
 // triggers when the upload button is clicked
 async function uploadCard() {
-  if (!uploadedImage.value) return; // rejects if no image
+  if (!uploadedImage.value) return // rejects if no image
 
   try {
     // uploads image to firebase storage
-    const storage = getStorage();
-    const imageStore = storageRef(storage, `images/${uploadedImage.value.name}`);
+    const storage = getStorage()
+    const imageStore = storageRef(storage, `images/${uploadedImage.value.name}`)
 
-    const snapshot = await uploadBytesResumable(imageStore, uploadedImage.value);
-    console.log('File uploaded successfully:', snapshot);
-    
+    const snapshot = await uploadBytesResumable(imageStore, uploadedImage.value)
+    console.log('File uploaded successfully:', snapshot)
+
     // get image url
-    const imageUrl = await getDownloadURL(snapshot.ref);
-    console.log('File available at:', imageUrl);
+    const imageUrl = await getDownloadURL(snapshot.ref)
+    console.log('File available at:', imageUrl)
 
     // get user id and get user's cards collection
-    const user = auth.currentUser;
-    const userCardsCollectionRef = collection(db, 'cards');
+    const user = auth.currentUser
+    const userCardsCollectionRef = collection(db, 'cards')
 
     const docRef = await addDoc(userCardsCollectionRef, {
       name: name.value,
@@ -60,18 +50,16 @@ async function uploadCard() {
       owner: {
         id: user.uid,
         name: user.displayName,
-        email: user.email,
+        email: user.email
       },
-      imageUrl: imageUrl,
-    });
-    console.log("Document written with ID: ", docRef.id);
+      imageUrl: imageUrl
+    })
+    console.log('Document written with ID: ', docRef.id)
     router.push('/')
-
   } catch (error) {
-    console.error('Error uploading file:', error);
+    console.error('Error uploading file:', error)
   }
 }
-
 
 const categories = ref([])
 function getCategories() {
@@ -94,7 +82,6 @@ function getCategories() {
 onMounted(() => {
   getCategories()
 })
-
 </script>
 
 <template>
@@ -117,11 +104,12 @@ onMounted(() => {
       </div>
 
       <div class="upload__field">
-        <input 
-          v-model="note" 
-          id="note" 
-          type="text" 
-          placeholder="Additional Notes about the card (e.g. Mint condition, 1990 edition, etc.)" />
+        <input
+          v-model="note"
+          id="note"
+          type="text"
+          placeholder="Additional Notes about the card (e.g. Mint condition, 1990 edition, etc.)"
+        />
       </div>
 
       <div class="upload__field">
@@ -130,7 +118,6 @@ onMounted(() => {
 
       <button type="submit">Upload</button>
     </form>
-
   </div>
 </template>
 

@@ -3,8 +3,7 @@ import CardsDisplay from '@/components/CardsDisplay.vue'
 import { ref, onMounted, watch } from 'vue'
 import { db } from '@/js/firebase.js'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
-import { useRoute } from 'vue-router';
-
+import { useRoute } from 'vue-router'
 
 const props = defineProps({
   category: { required: true, type: String }
@@ -13,10 +12,7 @@ const props = defineProps({
 const cards = ref([])
 function getCards() {
   const cardsCollection = collection(db, 'cards')
-  const queryCards = query(
-    cardsCollection,
-    where('category', '==', props.category),
-  )
+  const queryCards = query(cardsCollection, where('category', '==', props.category))
   onSnapshot(queryCards, (querySnapshot) => {
     try {
       let cardsSnapshot = []
@@ -29,7 +25,7 @@ function getCards() {
           note: doc.data().note,
           time: doc.data().time,
           owner: doc.data().owner,
-          imageUrl: doc.data().imageUrl,
+          imageUrl: doc.data().imageUrl
         }
         cardsSnapshot.push(card)
       })
@@ -41,16 +37,15 @@ function getCards() {
   })
 }
 
-const route = useRoute();
+const route = useRoute()
 
 watch(route, () => {
   getCards()
-});
+})
 
 onMounted(async () => {
   getCards()
 })
-
 </script>
 
 <template>
@@ -58,8 +53,8 @@ onMounted(async () => {
     <div class="category-header">
       <h1>{{ props.category }}</h1>
     </div>
-    <div class="category-body" >
-      <CardsDisplay :cards="cards"/>
+    <div class="category-body">
+      <CardsDisplay :cards="cards" />
     </div>
   </div>
 </template>

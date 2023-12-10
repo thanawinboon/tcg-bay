@@ -18,7 +18,7 @@ async function getCards() {
           note: doc.data().note,
           time: doc.data().time,
           owner: doc.data().owner,
-          imageUrl: doc.data().imageUrl,
+          imageUrl: doc.data().imageUrl
         }
         cardsSnapshot.push(card)
       })
