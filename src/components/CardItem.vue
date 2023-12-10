@@ -27,13 +27,19 @@ function getDate(timestamp) {
 export default {
   data: () => ({
     show: false
-  })
+  }),
+  methods: {
+    navigateToImage(card) {
+      const imageUrl = card.imageUrl
+      window.location.href = imageUrl
+    }
+  }
 }
 </script>
 
 <template>
   <div class="card">
-    <div class="artwork">
+    <div class="artwork" @click="navigateToImage(props.card)">
       <img class="card__img" alt="product-image" :src="props.card.imageUrl" />
     </div>
 
@@ -239,5 +245,3 @@ export default {
   }
 }
 </style>
-
-// TODO: find a way to display image
