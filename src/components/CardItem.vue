@@ -37,7 +37,12 @@ export default {
       <img class="card__img" alt="product-image" :src="props.card.imageUrl" />
     </div>
 
-    <h3 class="card__name">{{ props.card.name }}</h3>
+    <RouterLink
+      :to="{ name: 'card-details', params: { id: props.card.id } }"
+      style="display: inline-block; text-decoration: none; color: black"
+    >
+      <h3 class="card__name">{{ props.card.name }}</h3>
+    </RouterLink>
 
     <div class="card__extra">
       <h6 class="card__category">
