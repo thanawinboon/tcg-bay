@@ -77,8 +77,13 @@ export default {
 <template>
   <div class="card__body" v-if="currentCard">
     <div class="card__header">
-      <h3 v-if="isOwner()">My Card</h3>
-      <h3 v-else>Card</h3>
+      <div class="card__title">CARD VIEW</div>
+
+      <div class="control" v-if="isOwner()">
+        <button class="icon__box" @click.prevent="deleteCard">
+          <img class="icon" src="/icon-trashcan.svg" alt="search" />
+        </button>
+      </div>
     </div>
 
     <div class="card__detail">
@@ -143,10 +148,6 @@ export default {
         </div>
       </div>
     </div>
-
-    <div class="control" v-if="isOwner()">
-      <button @click.prevent="deleteCard">Delete card</button>
-    </div>
   </div>
 </template>
 
@@ -157,12 +158,57 @@ export default {
 }
 
 .card__header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-left: 49px;
   margin-bottom: 20px;
+  justify-content: space-between;
   text-align: center;
   align-items: center;
   color: #d3e2fc;
-  justify-content: center;
 }
+.card__title {
+  font-size: 40px;
+  color: #7dacf9;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+.control {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  .icon__box {
+    position: absolute;
+    margin-top: 190px;
+    margin-left: -80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 60px;
+    border-radius: 5px;
+    border: 1px solid #ab1111;
+    background: #021524;
+    cursor: pointer;
+    .icon {
+      max-width: 30px;
+      max-height: 30px;
+      filter: invert(17%) sepia(44%) saturate(4260%) hue-rotate(353deg) brightness(105%)
+        contrast(95%);
+    }
+    .icon:hover {
+      filter: invert(23%) sepia(89%) saturate(7439%) hue-rotate(0deg) brightness(96%) contrast(122%);
+    }
+  }
+  .icon__box:hover {
+    border: 1px solid #fa0000;
+    background: #0f2137;
+  }
+}
+
 .card__detail {
   --shadow-color: rgba(0, 0, 0, 0.05);
   display: flex;
