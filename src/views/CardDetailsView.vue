@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
 // import router from '@/router/index.js'
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 import { db, auth } from '@/js/firebase.js'
 import { doc, onSnapshot } from 'firebase/firestore'
 import { getDate } from '@/js/utils.js'
@@ -13,8 +13,8 @@ const props = defineProps({
   }
 })
 
-const currentUser = ref(null);
-const currentCard = ref(null);
+const currentUser = ref(null)
+const currentCard = ref(null)
 function getCard() {
   console.log(props.cardId)
   const card = doc(db, `cards/${props.cardId}`)
@@ -22,12 +22,12 @@ function getCard() {
     try {
       currentCard.value = docSnapshot.data()
     } catch (error) {
-      console.error('Error fetching cards:', error)
+      console.error('Error fetching card:', error)
     }
   })
 }
 
-const route = useRoute();
+const route = useRoute()
 watch(route, () => {
   getCard()
   auth.onAuthStateChanged((user) => {
@@ -37,7 +37,7 @@ watch(route, () => {
       currentUser.value = null
     }
   })
-});
+})
 onMounted(() => {
   getCard()
   auth.onAuthStateChanged((user) => {
@@ -57,79 +57,282 @@ function isOwner() {
 }
 
 function deleteCard() {
-  console.log('delete card')
+  console.log('Deleted card.')
 }
+</script>
 
+<script>
+export default {
+  data: () => ({
+    show: false
+  }),
+  methods: {
+    navigateToImage(card) {
+      const imageUrl = card.imageUrl
+      window.location.href = imageUrl
+    }
+  }
+}
 </script>
 
 <template>
-  <div class="card-detail" v-if="currentCard">
-    <div class="card-detail-header">
+  <div class="card__body" v-if="currentCard">
+    <div class="card__header">
       <h3 v-if="isOwner()">My Card</h3>
       <h3 v-else>Card</h3>
-      <h3>Card id: {{ cardId }}</h3>
-      
-      <h1>{{ currentCard.name }}</h1>
-    </div>
-    
-    <div class="card-detail-image">
-      <img :src="currentCard.imageUrl" alt="card image" />
-    </div>
-    <div class="card-detail-description">
-      <h3>Owner's Note</h3>
-      <h4>{{ currentCard.note }}</h4>
     </div>
 
-    <div class="card-detail-body">
-      <div class="card-detail-body-item">
-        <h3>Category: {{ currentCard.category }}</h3>
-        <h3>Card posted on: {{ getDate(currentCard.time.seconds * 1000) }}</h3>
+    <div class="card__detail">
+      <div class="card__left">
+        <div class="artwork" @click="navigateToImage(currentCard)">
+          <img class="card__img" alt="product-image" :src="currentCard.imageUrl" />
+        </div>
+
+        <div class="card__footer">
+          <h6 class="subtext">Posted on:</h6>
+          <div class="card__time">
+            <img src="/icon-clock.svg" alt="clock" />
+            {{ getDate(currentCard.time.seconds * 1000) }}
+          </div>
+        </div>
       </div>
-      <div class="card-detail-body-item">
-        <h3>Owner: {{ currentCard.owner.name }}</h3>
-        <h3>Contact: {{ currentCard.owner.email }}</h3>
+
+      <div class="card__right">
+        <div class="card__category">
+          <h6 class="subtext">Category:</h6>
+          <RouterLink
+            :to="{ name: 'category', params: { category: currentCard.category } }"
+            style="display: inline-block; text-decoration: none; color: black"
+          >
+            <h5 class="card__category__text">{{ currentCard.category }}</h5>
+          </RouterLink>
+        </div>
+        <div class="card__name">
+          <h6 class="subtext">Name:</h6>
+          <h5 class="card__name__text">{{ currentCard.name }}</h5>
+        </div>
+
+        <div class="card__note">
+          <h6 class="subtext">Owner's note:</h6>
+          <p class="card__note__text">{{ currentCard.note }}</p>
+        </div>
+
+        <div class="card__owner">
+          <div class="card__owner__item">
+            <div>
+              <span>Owner: </span>
+              <RouterLink
+                :to="{ name: 'user-profile', params: { userId: currentCard.owner.id } }"
+                style="display: inline-block; text-decoration: none; color: black"
+              >
+                <span class="name">{{ currentCard.owner.name }}</span>
+              </RouterLink>
+            </div>
+            <div>
+              Card ID: <span class="code">{{ cardId }}</span>
+            </div>
+          </div>
+          <div class="card__contact">
+            <span>Email:</span><span class="email">{{ currentCard.owner.email }}</span>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="owner" v-if="isOwner()">
-      <hr />
-      <div>
-        <h1>Owner Control panel</h1>
-        <button @click.prevent="deleteCard">Delete card</button>
-      </div>
+    <div class="control" v-if="isOwner()">
+      <button @click.prevent="deleteCard">Delete card</button>
     </div>
   </div>
 </template>
 
-<style scoped>
-.card-detail {
-  text-align: center;
+<style lang="scss" scoped>
+.card__body {
   width: 100%;
-  padding: 0 10px;
-  margin-bottom: 60px;
+  height: 100%;
 }
 
-.card-detail-image img{
-  max-height: 500px;
-  max-width: 800px;
+.card__header {
+  margin-bottom: 20px;
+  text-align: center;
+  align-items: center;
+  color: #d3e2fc;
+  justify-content: center;
 }
-
-.card-detail-body {
+.card__detail {
+  --shadow-color: rgba(0, 0, 0, 0.05);
   display: flex;
-  justify-content: space-evenly;
-  margin: 20px 0;
+  flex-direction: row;
+  justify-content: center;
+  gap: 3rem;
+  width: 100%;
+  color: #94a5bc;
+  background-color: #0d2037;
+  border-radius: 1rem;
+  box-shadow: 0px 0px 20px 20px rgba(0, 0, 0, 0.418);
+  padding: 1.5rem;
+}
 
-  .card-detail-body-item {
-    margin: 0 20px;
+.card__left,
+.card__right {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+}
+.card__right {
+  gap: 0.5rem;
+}
+
+.artwork {
+  width: 300px;
+  height: 500px;
+  background-color: black;
+  border-radius: 0.5rem;
+  display: flex;
+  flex: none;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  &:hover {
+    cursor: pointer;
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    &::before {
+      background: #0d2037;
+      opacity: 0.5;
+    }
+    &::after {
+      content: url(/icon-view.svg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+  img {
+    width: 100%;
   }
 }
 
-hr {
-  display: block;
+.card__footer {
+  display: flex;
+  justify-content: space-between;
+  .card__time {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    color: #8bacd9;
+    font-weight: 100;
+  }
+}
+
+.card__category {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 1rem;
+  .card__category__text {
+    color: #ffcb2b;
+    font-size: 30px;
+    font-weight: 600;
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+
+.card__name {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 2.8rem;
+  .card__name__text {
+    color: #4a82e7;
+    font-weight: 500;
+    font-size: 30px;
+    letter-spacing: 1px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+  }
+}
+
+.card__note {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  align-items: justify-content;
+  width: 100%;
+  min-width: 500px;
+  .card__note__text {
+    color: #99a8c2;
+    font-size: 18px;
+    font-weight: 300;
+    line-height: 25px;
+    background: #021524;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    height: 22.3rem;
+  }
+}
+
+.card__owner {
+  display: flex;
+  justify-content: left;
+  flex-direction: column;
+  align-items: left;
+  gap: 0.5rem;
+  .card__owner__item {
+    display: flex;
+    justify-content: space-between;
+    color: #5484d0;
+  }
+  span {
+    font-weight: 300;
+    &.name {
+      color: white;
+      &:hover {
+        color: #d3e2fc;
+        cursor: pointer;
+      }
+    }
+  }
+}
+.card__contact {
+  display: flex;
+  justify-content: left;
+  gap: 0.8rem;
+  color: #5484d0;
+}
+
+.email {
+  color: white;
+}
+.code {
+  color: #ec938f;
+}
+.subtext {
+  font-size: 20px;
+  color: #5484d0;
+}
+.line {
   height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
-  margin: 30px 0;
-  padding: 0;
+  width: 100%;
+  background: #172b3c;
 }
 </style>
