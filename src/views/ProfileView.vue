@@ -122,8 +122,8 @@ function userSignOut() {
     <div class="profile-header">
       <h3 v-if="userId">Profile</h3>
       <h3 v-else>My Profile</h3>
-      <h1>{{ currentUser.username }}</h1>
-      <h3>{{ currentUser.email }}</h3>
+      <h1 class="username">{{ currentUser.username }}</h1>
+      <h3 class="email">{{ currentUser.email }}</h3>
     </div>
 
     <div class="profile-body">
@@ -136,8 +136,8 @@ function userSignOut() {
       <hr />
       <div>
         <h1>User Settings</h1>
-        <p>Current user: {{ currentUser.email }}</p>
-        <p>ID: {{ currentUser.id }}</p>
+        <p>Current user: <span class="email">{{ currentUser.email }}</span></p>
+        <p>ID: <span class="code">{{ currentUser.id }}</span></p>
         <button @click.prevent="userSignOut">Sign Out</button>
       </div>
     </div>
@@ -159,5 +159,16 @@ hr {
   border-top: 1px solid #ccc;
   margin: 30px 0;
   padding: 0;
+}
+
+.username {
+    color: #ffcb2b;
+    font-weight: 600;
+}
+.email {
+  color: white;
+}
+.code {
+  color: #ec938f;
 }
 </style>
