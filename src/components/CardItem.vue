@@ -31,6 +31,7 @@ export default {
     <RouterLink
       :to="{ name: 'card-details', params: { cardId: props.card.id } }"
       style="display: inline-block; text-decoration: none; color: black"
+      :title="props.card.name"
     >
       <h3 class="card__name">{{ props.card.name }}</h3>
     </RouterLink>
@@ -99,10 +100,8 @@ export default {
   align-items: center;
   overflow: hidden;
   position: relative;
-
   &:hover {
     cursor: pointer;
-
     &::before,
     &::after {
       content: '';
@@ -113,12 +112,10 @@ export default {
       height: 100%;
       z-index: 1;
     }
-
     &::before {
       background: #0d2037;
       opacity: 0.5;
     }
-
     &::after {
       content: url(/icon-view.svg);
       display: flex;
@@ -126,7 +123,6 @@ export default {
       align-items: center;
     }
   }
-
   img {
     width: 100%;
   }
@@ -137,7 +133,10 @@ export default {
   font-weight: 600;
   font-size: 1.5rem;
   letter-spacing: 1px;
-
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
   &:hover {
     color: white;
     cursor: pointer;
@@ -187,13 +186,6 @@ export default {
     }
   }
 }
-
-.line {
-  height: 1px;
-  width: 100%;
-  background: #172b3c;
-}
-
 .card__owner {
   display: flex;
   justify-content: start;
@@ -210,7 +202,6 @@ export default {
     aspect-ratio: 1/1;
     border: 1px solid white;
     border-radius: 100%;
-
     img {
       width: 100%;
     }
@@ -218,10 +209,8 @@ export default {
 
   span {
     font-weight: 300;
-
     &.name {
       color: white;
-
       &:hover {
         color: #d3e2fc;
         cursor: pointer;
@@ -229,4 +218,11 @@ export default {
     }
   }
 }
+
+.line {
+  height: 1px;
+  width: 100%;
+  background: #172b3c;
+}
+
 </style>
