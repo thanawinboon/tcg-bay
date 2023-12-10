@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue';
 import { db, auth } from '@/js/firebase';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore"; 
 import router from '@/router/index.js';
 
@@ -16,9 +16,9 @@ function submitForm() {
     .then((userCredential) => {
       // Signed up
       const user = userCredential.user
-      console.log(user)
-      console.log(userCredential)
-
+      updateProfile(user, {
+        displayName: username.value,
+      })
       const userRef = doc(db, 'users', user.uid);
       setDoc(userRef, {
         username: username.value,

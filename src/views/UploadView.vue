@@ -57,7 +57,10 @@ async function uploadCard() {
       category: category.value.name,
       note: note.value,
       time: serverTimestamp(),
-      owner: user.uid,
+      owner: {
+        id: user.uid,
+        name: user.displayName,
+      },
       imageUrl: imageUrl,
     });
     console.log("Document written with ID: ", docRef.id);

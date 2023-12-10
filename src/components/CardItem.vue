@@ -54,7 +54,7 @@ export default {
         <!-- display image -->
       </div>
       <p>
-        <span>Owned by</span> <span class="name">{{ props.card.owner }}</span>
+        <span>Owned by</span> <span class="name">{{ props.card.owner.name }}</span>
       </p>
     </div>
 
