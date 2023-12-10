@@ -54,7 +54,13 @@ export default {
         <!-- display image -->
       </div>
       <p>
-        <span>Owned by</span> <span class="name">{{ props.card.owner.name }}</span>
+        <span>Owned by </span>
+        <RouterLink
+          :to="{ name: 'user-profile', params: { id: props.card.owner.id } }"
+          style="display: inline-block; text-decoration: none; color: black"
+        >
+          <span class="name">{{ props.card.owner.name }}</span>
+        </RouterLink>
       </p>
     </div>
 
