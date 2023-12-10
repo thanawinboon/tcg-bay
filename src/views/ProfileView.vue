@@ -22,6 +22,7 @@ const cards = ref([])
 const currentUser = ref(null)
 
 function userCards(userId) {
+  console.log(userId)
   const cardsCollection = collection(db, 'cards')
   const queryCards = query(cardsCollection, where('owner.id', '==', userId))
   onSnapshot(queryCards, (querySnapshot) => {
@@ -75,7 +76,7 @@ watch(route, () => {
           email: user.email,
           username: user.displayName
         }
-        userCards(currentUser.value.uid)
+        userCards(user.uid)
       } else {
         currentUser.value = null
       }
@@ -96,7 +97,7 @@ onMounted(() => {
           email: user.email,
           username: user.displayName
         }
-        userCards(currentUser.value.uid)
+        userCards(user.uid)
       } else {
         currentUser.value = null
       }
