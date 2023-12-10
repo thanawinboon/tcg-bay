@@ -3,7 +3,7 @@ import { ref, onMounted, watch } from 'vue'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/js/firebase'
 import router from '@/router/index.js'
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
 import { db } from '@/js/firebase.js'
 import { collection, doc, onSnapshot, query, where } from 'firebase/firestore'
@@ -13,7 +13,7 @@ import CardsDisplay from '@/components/CardsDisplay.vue'
 const props = defineProps({
   userId: {
     required: false,
-    default: "",
+    default: '',
     type: String
   }
 })
@@ -60,7 +60,7 @@ function getUser() {
   })
 }
 
-const route = useRoute();
+const route = useRoute()
 
 watch(route, () => {
   if (props.userId) {
@@ -81,7 +81,7 @@ watch(route, () => {
       }
     })
   }
-});
+})
 
 onMounted(() => {
   if (props.userId) {
@@ -129,15 +129,21 @@ function userSignOut() {
     <div class="profile-body">
       <hr />
       <h3>Owned cards</h3>
-      <CardsDisplay :cards="cards" />
+      <div class="showcase">
+        <CardsDisplay :cards="cards" />
+      </div>
     </div>
 
     <div class="usersettings" v-if="!userId">
       <hr />
       <div>
         <h1>User Settings</h1>
-        <p>Current user: <span class="email">{{ currentUser.email }}</span></p>
-        <p>ID: <span class="code">{{ currentUser.id }}</span></p>
+        <p>
+          Current user: <span class="email">{{ currentUser.email }}</span>
+        </p>
+        <p>
+          ID: <span class="code">{{ currentUser.id }}</span>
+        </p>
         <button @click.prevent="userSignOut">Sign Out</button>
       </div>
     </div>
@@ -151,6 +157,9 @@ function userSignOut() {
   padding: 0 10px;
   margin-bottom: 60px;
 }
+.showcase {
+  text-align: left;
+}
 
 hr {
   display: block;
@@ -162,8 +171,8 @@ hr {
 }
 
 .username {
-    color: #ffcb2b;
-    font-weight: 600;
+  color: #ffcb2b;
+  font-weight: 600;
 }
 .email {
   color: white;
