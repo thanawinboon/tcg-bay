@@ -68,7 +68,6 @@ export default {
         <span>Owned by </span>
         <RouterLink
           :to="{ name: 'user-profile', params: { userId: props.card.owner.id } }"
-          
           style="display: inline-block; text-decoration: none; color: black"
         >
           <span class="name">{{ props.card.owner.name }}</span>
@@ -76,21 +75,15 @@ export default {
       </p>
     </div>
 
-    <v-card>
-      <v-card-actions>
-        <div class="card__revealer">
-          <v-btn icon @click="show = !show">
-            <v-icon>{{ show ? ' &#9650;' : '&#9660;' }}</v-icon>
-          </v-btn>
-        </div>
-      </v-card-actions>
-      <v-expand-transition>
-        <div v-show="show">
-          <div class="line"></div>
-          <p class="card__note">{{ props.card.note }}</p>
-        </div>
-      </v-expand-transition>
-    </v-card>
+    <div class="card__revealer">
+      <div class="card__revealer__icon" @click="show = !show">
+        <span>{{ show ? ' &#9650;' : '&#9660;' }}</span>
+      </div>
+    </div>
+    <div v-show="show">
+      <div class="line"></div>
+      <p class="card__note">{{ props.card.note }}</p>
+    </div>
   </div>
 </template>
 
@@ -178,19 +171,16 @@ export default {
 .card__extra {
   display: flex;
   justify-content: space-between;
-
   .card__category,
   .card__time {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
-
   .card__category {
     color: #ffcb2b;
     font-weight: 600;
   }
-
   .card__time {
     color: #8bacd9;
     font-weight: 100;
@@ -202,6 +192,13 @@ export default {
   text-align: right;
   justify-content: right;
   align-items: right;
+  .card__revealer__icon {
+    color: #8bacd9;
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
+  }
 }
 
 .line {
