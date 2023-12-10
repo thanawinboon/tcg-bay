@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-// import router from '@/router/index.js'
 import { useRoute } from 'vue-router'
 import { db, auth } from '@/js/firebase.js'
 import { doc, onSnapshot } from 'firebase/firestore'
@@ -109,7 +108,13 @@ export default {
         </div>
         <div class="card__name">
           <h6 class="subtext">Name:</h6>
-          <h5 class="card__name__text">{{ currentCard.name }}</h5>
+          <RouterLink
+            :to="{ name: 'card-details', params: { cardId: currentCard.id } }"
+            style="display: inline-block; text-decoration: none; color: black"
+            :title="currentCard.name"
+          >
+            <h5 class="card__name__text">{{ currentCard.name }}</h5>
+          </RouterLink>
         </div>
 
         <div class="card__note">
