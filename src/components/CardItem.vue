@@ -37,9 +37,14 @@ export default {
     </RouterLink>
 
     <div class="card__extra">
-      <h6 class="card__category">
-        {{ props.card.category }}
-      </h6>
+      <div class="card__category">
+        <RouterLink
+          :to="{ name: 'category', params: { category: props.card.category } }"
+          style="display: inline-block; text-decoration: none; color: black"
+        >
+          <div class="card__category__text">{{ props.card.category }}</div>
+        </RouterLink>
+      </div>
       <h6 class="card__time">
         <img src="/icon-clock.svg" alt="clock" />
         {{ getDate(props.card.time.seconds * 1000) }}
@@ -160,9 +165,13 @@ export default {
     align-items: center;
     gap: 0.5rem;
   }
-  .card__category {
+  .card__category__text {
     color: #ffcb2b;
     font-weight: 600;
+    &:hover {
+      color: white;
+      cursor: pointer;
+    }
   }
   .card__time {
     color: #8bacd9;
@@ -176,7 +185,7 @@ export default {
   justify-content: right;
   align-items: right;
   position: absolute;
-  margin-top: 426px;
+  margin-top: 432px;
   margin-left: 280px;
   .card__revealer__icon {
     color: #8bacd9;
@@ -224,5 +233,4 @@ export default {
   width: 100%;
   background: #172b3c;
 }
-
 </style>
