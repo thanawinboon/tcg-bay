@@ -67,7 +67,8 @@ export default {
       <p>
         <span>Owned by </span>
         <RouterLink
-          :to="{ name: 'user-profile', params: { id: props.card.owner.id } }"
+          :to="{ name: 'user-profile', params: { userId: props.card.owner.id } }"
+          
           style="display: inline-block; text-decoration: none; color: black"
         >
           <span class="name">{{ props.card.owner.name }}</span>

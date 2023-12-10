@@ -43,7 +43,6 @@ function getCards() {
 
 const route = useRoute();
 
-
 watch(route, () => {
   getCards()
 });

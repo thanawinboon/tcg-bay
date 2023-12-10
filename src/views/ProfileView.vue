@@ -1,18 +1,19 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/js/firebase'
 import router from '@/router/index.js'
+import { useRoute } from 'vue-router';
 
 import { db } from '@/js/firebase.js'
-import { collection, onSnapshot, query, where } from 'firebase/firestore'
+import { collection, doc, onSnapshot, query, where } from 'firebase/firestore'
 
 import CardsDisplay from '@/components/CardsDisplay.vue'
 
 const props = defineProps({
   userId: {
     required: false,
-    default: null,
+    default: "",
     type: String
   }
 })
@@ -48,24 +49,38 @@ function userCards(userId) {
 }
 
 function getUser() {
-  const usersCollection = collection(db, 'users')
-  const queryCards = query(usersCollection, where('id', '==', props.userId))
-  onSnapshot(queryCards, (querySnapshot) => {
+  console.log(props.userId)
+  const user = doc(db, `users/${props.userId}`)
+  onSnapshot(user, (docSnapshot) => {
     try {
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, ' => ', doc.data())
-        let user = {
-          id: doc.id,
-          // name: doc.data().name,
-          name: 'temp'
-        }
-        currentUser.value = user
-      })
+      currentUser.value = docSnapshot.data()
     } catch (error) {
       console.error('Error fetching cards:', error)
     }
   })
 }
+
+const route = useRoute();
+
+watch(route, () => {
+  if (props.userId) {
+    // if a userId is specified, display that person's profile
+    getUser()
+    userCards(props.userId)
+  } else {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        currentUser.value = user
+        console.log('Current user is: ' + currentUser.value.email)
+        console.log(auth.currentUser)
+        console.log(currentUser.value.uid)
+        userCards(currentUser.value.uid)
+      } else {
+        currentUser.value = null
+      }
+    })
+  }
+});
 
 onMounted(() => {
   if (props.userId) {
