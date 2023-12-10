@@ -1,8 +1,10 @@
 <script setup>
 import CardsDisplay from '@/components/CardsDisplay.vue'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { db } from '@/js/firebase.js'
 import { collection, onSnapshot, query, where } from 'firebase/firestore'
+import { useRoute } from 'vue-router';
+
 
 const props = defineProps({
   category: { required: true, type: String }
@@ -15,7 +17,6 @@ function getCards() {
     cardsCollection,
     where('category', '==', props.category),
   )
-
   onSnapshot(queryCards, (querySnapshot) => {
     try {
       let cardsSnapshot = []
@@ -40,8 +41,15 @@ function getCards() {
   })
 }
 
+const route = useRoute();
+
+
+watch(route, () => {
+  getCards()
+});
+
 onMounted(async () => {
-  await getCards()
+  getCards()
 })
 
 </script>
@@ -51,7 +59,7 @@ onMounted(async () => {
     <div class="category-header">
       <h1>{{ props.category }}</h1>
     </div>
-    <div class="category-body">
+    <div class="category-body" >
       <CardsDisplay :cards="cards"/>
     </div>
   </div>

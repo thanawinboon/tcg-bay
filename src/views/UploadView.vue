@@ -54,7 +54,7 @@ async function uploadCard() {
 
     const docRef = await addDoc(userCardsCollectionRef, {
       name: name.value,
-      category: category.value,
+      category: category.value.name,
       note: note.value,
       time: serverTimestamp(),
       owner: user.uid,
@@ -69,11 +69,7 @@ async function uploadCard() {
 }
 
 
-const categories = ref([
-  {
-    name: 'Temp'
-  }
-])
+const categories = ref([])
 function getCategories() {
   onSnapshot(collection(db, 'categories'), (querySnapshot) => {
     try {
@@ -108,7 +104,7 @@ onMounted(() => {
 
       <div class="upload__field">
         <label for="category">Select a category:</label>
-        <select id="category" v-model="selectedCategory">
+        <select id="category" v-model="category">
           <option disabled value="">Please select one</option>
           <option v-for="(category, index) in categories" :key="index" :value="category">
             {{ category.name }}
