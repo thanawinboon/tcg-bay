@@ -60,6 +60,7 @@ async function uploadCard() {
       owner: {
         id: user.uid,
         name: user.displayName,
+        email: user.email,
       },
       imageUrl: imageUrl,
     });
