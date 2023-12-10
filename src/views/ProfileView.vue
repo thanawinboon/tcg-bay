@@ -22,7 +22,7 @@ const currentUser = ref(null)
 
 function userCards(userId) {
   const cardsCollection = collection(db, 'cards')
-  const queryCards = query(cardsCollection, where('owner', '==', userId))
+  const queryCards = query(cardsCollection, where('owner.id', '==', userId))
   onSnapshot(queryCards, (querySnapshot) => {
     try {
       let cardsSnapshot = []
